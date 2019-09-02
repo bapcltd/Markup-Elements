@@ -21,7 +21,7 @@ class ElementsTest extends Base
 	{
 		$directories = [
 			__DIR__ . '/../src/Elements/',
-			__DIR__ . '/../src/UtilityElements/'
+			__DIR__ . '/../src/UtilityElements/',
 		];
 
 		$out = [];
