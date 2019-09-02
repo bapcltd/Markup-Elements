@@ -474,7 +474,7 @@ class ElementsTest extends Base
 		);
 	}
 
-	public function testStaticPicture() : void
+	public function testStaticPictureSingleLocalWithCacheBust() : void
 	{
 		$this->assertSame(
 			[
@@ -519,7 +519,10 @@ class ElementsTest extends Base
 				'/foo.webp'
 			)
 		);
+	}
 
+	public function testStaticPictureMultipleLocalNoCacheBust() : void
+	{
 		$this->assertSame(
 			[
 				[
@@ -586,7 +589,10 @@ class ElementsTest extends Base
 				'/foo.jpg'
 			)
 		);
-		
+	}
+	
+	public function testStaticPictureMultipleRemoteNoCacheBust() : void
+	{
 		$this->assertSame(
 			[
 				[
@@ -665,6 +671,10 @@ class ElementsTest extends Base
 				'https://example.com/foo.jpg'
 			)
 		);
+	}
+
+	public function testStaticPictureExpectPossibleInlineSvg() : void
+	{
 		$this->assertSame(
 			[
 				[
