@@ -19,9 +19,19 @@ class ElementsTest extends Base
 	*/
 	public function dataProviderElementClasses() : array
 	{
-		$directory_path = realpath(
+		$directories = [
+			(
 			__DIR__ .
 			'/../src/Elements/'
+			),
+			__DIR__ . '/../src/UtilityElements/'
+		];
+
+		$out = [];
+
+		foreach ($directories as $directory_path_string) {
+		$directory_path = realpath(
+			$directory_path_string
 		);
 
 		$this->assertIsString($directory_path);
@@ -42,8 +52,6 @@ class ElementsTest extends Base
 		* @var iterable<string>
 		*/
 		$filter = new RegexIterator($iterator, '/\.php$/');
-
-		$out = [];
 
 		foreach ($filter as $filename) {
 			/**
@@ -68,6 +76,7 @@ class ElementsTest extends Base
 			) {
 				$out[] = [$class_name];
 			}
+		}
 		}
 
 		return $out;
