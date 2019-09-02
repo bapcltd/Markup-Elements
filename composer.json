@@ -1,0 +1,51 @@
+{
+	"name": "bapcltd/markup-elements",
+	"description": "Markup Elements",
+	"license": "proprietary",
+	"authors": [
+		{
+			"name": "Marv Blackwell",
+			"email": "marv@bapc.ltd"
+		}
+	],
+	"autoload": {
+		"psr-4": {
+			"BAPC\\Html\\Elements\\": "./src/"
+		}
+	},
+	"autoload-dev": {
+		"psr-4": {
+			"BAPC\\Html\\Elements\\": "./tests/"
+		}
+	},
+	"config": {
+		"classmap-authoritative": true,
+		"sort-packages": true
+	},
+	"conflict": {
+		"vimeo/psalm": "<3.4"
+	},
+	"scripts": {
+		"coverage": [
+			"phpunit --stop-on-error --stop-on-warning --stop-on-failure --prepend=./phpunit.xdebug-filter.php --coverage-php=./coverage/clover/phpunit.cov",
+			"phpcov merge ./coverage/clover/ --html ./coverage/"
+		],
+		"tests": [
+			"phpunit --stop-on-error --stop-on-warning --stop-on-failure",
+			"psalm --show-info=false",
+			"php-cs-fixer fix --verbose --dry-run"
+		]
+	},
+	"require": {
+		"php": "^7.3",
+		"paragonie/constant_time_encoding": "^2.2",
+		"signpostmarv/daft-markup": "^2.0"
+	},
+	"require-dev": {
+		"phpunit/phpcov": "^6.0",
+		"phpunit/phpunit": "^8.3",
+		"psalm/plugin-phpunit": "^0.7.0",
+		"signpostmarv/php-cs-fixer-config": "^0.11.1",
+		"vimeo/psalm": "^3.4"
+	}
+}
