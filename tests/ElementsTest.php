@@ -52,11 +52,11 @@ class ElementsTest extends Base
 			$class_name =
 				__NAMESPACE__ .
 				'\\' .
-				mb_substr(
+				str_replace('/', '\\', mb_substr(
 					$filename,
 					mb_strlen($directory_path) + 1,
 					-4
-				);
+				));
 
 			if (
 				is_a(

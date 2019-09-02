@@ -10,7 +10,7 @@ namespace BAPC\Html\Elements;
 * @psalm-type SRC = string
 * @psalm-type ONERROR = string
 *
-* @template-extends AbstractElementFromAttributes<'esi:include', array{onerror:ONERROR, src:SRC}>
+* @template-extends AbstractElementFromAttributes<'esi:include', array{onerror:ONERROR, src:SRC}, array<empty, empty>>
 */
 class EsiInclude extends AbstractElementFromAttributes
 {

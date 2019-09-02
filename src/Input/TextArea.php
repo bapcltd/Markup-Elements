@@ -6,19 +6,28 @@ declare(strict_types=1);
 
 namespace BAPC\Html\Elements\Input;
 
+use BAPC\Html\Elements\AbstractElementFromAttributes;
+
 /**
-* @psalm-type T = array{value?:scalar|array<int, scalar>}
+* @psalm-type CONTENT = array<int, scalar>
+*
+* @template-extends AbstractElementFromAttributes<'textarea', array<string, scalar|array<int, scalar>>, CONTENT>
 */
-class TextArea
+class TextArea extends AbstractElementFromAttributes
 {
 	/**
-	* @param T $attributes
-	*
-	* @return array{!element:'textarea', !attributes:array<string, scalar|array<int, scalar>>, !content:array<int, scalar|array<int, scalar>>}
+	* @return array{
+		!element:'textarea',
+		!attributes:array<string, scalar|array<int, scalar>>,
+		!content:CONTENT
+	}
 	*/
 	public static function FromAttributes(
 		array $attributes = []
 	) : array {
+		/**
+		* @var array<int, scalar>
+		*/
 		$value = (array) ($attributes['value'] ?? '');
 
 		if (array_key_exists('value', $attributes)) {
@@ -26,14 +35,21 @@ class TextArea
 		}
 
 		/**
-		* @var array{!element:'textarea', !attributes:array<string, scalar|array<int, scalar>>, !content:array<int, scalar|array<int, scalar>>}
+		* @var array{
+			!element:'textarea',
+			!attributes:array<string, scalar|array<int, scalar>>,
+			!content:array<int, scalar>
+		}
 		*/
-		$out = [
-			'!element' => 'textarea',
+		return [
+			'!element' => static::ElementName(),
 			'!attributes' => $attributes,
 			'!content' => $value,
 		];
+	}
 
-		return $out;
+	public static function ElementName() : string
+	{
+		return 'textarea';
 	}
 }

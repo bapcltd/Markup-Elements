@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<files psalm-version="3.4.12@86e5e50c1bb492045e70f2ebe1da3cad06e4e9b2">
+  <file src="phpunit.xdebug-filter.php">
+    <MixedArgument occurrences="2">
+      <code>\XDEBUG_FILTER_CODE_COVERAGE</code>
+      <code>\XDEBUG_PATH_WHITELIST</code>
+    </MixedArgument>
+    <UndefinedConstant occurrences="2">
+      <code>\XDEBUG_FILTER_CODE_COVERAGE</code>
+      <code>\XDEBUG_PATH_WHITELIST</code>
+    </UndefinedConstant>
+  </file>
+</files>

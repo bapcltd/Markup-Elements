@@ -9,7 +9,7 @@ namespace BAPC\Html\Elements;
 /**
 * @template T1 as string
 *
-* @template-extends AbstractElementFromAttributes<'link', array<string, scalar|array<int, scalar>>>
+* @template-extends AbstractElementFromAttributes<'link', array<string, scalar|array<int, scalar>>, array<empty, empty>>
 */
 class Link extends AbstractElementFromAttributes
 {

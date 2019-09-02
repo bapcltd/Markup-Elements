@@ -9,6 +9,7 @@ namespace BAPC\Html\Elements;
 /**
 * @template ELEMENT as string
 * @template ATTRIBUTES as array<string, scalar|array<int, scalar>>
+* @template CONTENT as array<int, scalar>
 *
 * @template-extends AbstractElement<ELEMENT>
 */
@@ -17,13 +18,13 @@ abstract class AbstractElementFromAttributes extends AbstractElement
 	/**
 	* @param ATTRIBUTES $attributes
 	*
-	* @return array{!element:ELEMENT, !attributes:ATTRIBUTES, !content:array<empty, empty>}
+	* @return array{!element:ELEMENT, !attributes:ATTRIBUTES, !content:CONTENT}
 	*/
 	public static function FromAttributes(
 		array $attributes = []
 	) : array {
 		/**
-		* @var array{!element:ELEMENT, !attributes:ATTRIBUTES, !content:array<empty, empty>}
+		* @var array{!element:ELEMENT, !attributes:ATTRIBUTES, !content:CONTENT}
 		*/
 		$out = [
 			'!element' => static::ElementName(),

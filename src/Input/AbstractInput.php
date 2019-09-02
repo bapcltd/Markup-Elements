@@ -11,7 +11,7 @@ use BAPC\Html\Elements\AbstractElementFromAttributes;
 /**
 * @template T1 as string
 *
-* @template-extends AbstractElementFromAttributes<'input', array{type:T1, value?:scalar|array<int, scalar>}>
+* @template-extends AbstractElementFromAttributes<'input', array{type:T1, value?:scalar|array<int, scalar>}, array<empty, empty>>
 */
 abstract class AbstractInput extends AbstractElementFromAttributes
 {
