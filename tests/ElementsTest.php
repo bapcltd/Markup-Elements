@@ -7,6 +7,7 @@ declare(strict_types=1);
 namespace BAPC\Html\Elements;
 
 use DateTimeImmutable;
+use ParagonIE\ConstantTime\Base64UrlSafe;
 use PHPUnit\Framework\TestCase as Base;
 use RecursiveDirectoryIterator;
 use RecursiveIteratorIterator;
@@ -470,6 +471,238 @@ class ElementsTest extends Base
 					TableCell::FromAttributes([]),
 				],
 			])
+		);
+	}
+
+	public function testStaticPicture() : void
+	{
+		$this->assertSame(
+			[
+				[
+					'!element' => 'picture',
+					'!attributes' => [
+						'data-picture' => Base64UrlSafe::encode(hash_file(
+							'sha384',
+							__DIR__ . '/Fixtures/foo.webp',
+							true
+						)),
+					],
+					'!content' => [
+						[
+							'!element' => 'img',
+							'!attributes' => [
+								'width' => 1,
+								'height' => 1,
+								'src' => 'https://example.com/foo.93ee6a8fd0.webp',
+							],
+						],
+					],
+				],
+				[
+					'!element' => 'style',
+					'!attributes' => [
+						'integrity' => 'sha256-LWqdy2k1m8AGLI7nkYtP3/757l+MysSjn5t9CRctPuY=',
+					],
+					'!content' => [
+						'picture[data-picture="k-5qj9AetabfClAktY-kbPstTwhgit5P2NsFjnNlDY6iDLhrfAqjExpKbaVkaOKH"]{max-width:1rem;}',
+					],
+				],
+			],
+			StaticPicture::ToMarkupCollection(
+				'https://example.com/',
+				__DIR__ . '/Fixtures/',
+				true,
+				1,
+				1,
+				[],
+				[],
+				'/foo.webp'
+			)
+		);
+
+		$this->assertSame(
+			[
+				[
+					'!element' => 'picture',
+					'!attributes' => [
+						'data-picture' => Base64UrlSafe::encode(hash_file(
+							'sha384',
+							__DIR__ . '/Fixtures/foo.jpg',
+							true
+						)),
+					],
+					'!content' => [
+						[
+							'!element' => 'source',
+							'!attributes' => [
+								'type' => 'image/webp',
+								'srcset' => 'https://example.com/foo.webp',
+							],
+						],
+						[
+							'!element' => 'source',
+							'!attributes' => [
+								'type' => 'image/png',
+								'srcset' => 'https://example.com/foo.png',
+							],
+						],
+						[
+							'!element' => 'source',
+							'!attributes' => [
+								'type' => 'image/jpeg',
+								'srcset' => 'https://example.com/foo.jpg',
+							],
+						],
+						[
+							'!element' => 'img',
+							'!attributes' => [
+								'width' => 1,
+								'height' => 1,
+								'src' => 'https://example.com/foo.jpg',
+							],
+						],
+					],
+				],
+				[
+					'!element' => 'style',
+					'!attributes' => [
+						'integrity' => 'sha256-2RVrnOg604QxvYhhAnrnI7vhxP7JhEighII4FMt/BVc=',
+					],
+					'!content' => [
+						'picture[data-picture="eTh6y1CpWSNSTG2ejOfB22SUOkrpEWmHpKfqgLns6I9s6ghmFkQffh4l2yGLSp_A"]{max-width:1rem;}',
+					],
+				],
+			],
+			StaticPicture::ToMarkupCollection(
+				'https://example.com/',
+				__DIR__ . '/Fixtures/',
+				false,
+				1,
+				1,
+				[],
+				[],
+				'/foo.webp',
+				'/foo.png',
+				'/foo.jpg'
+			)
+		);
+		
+		$this->assertSame(
+			[
+				[
+					'!element' => 'picture',
+					'!attributes' => [
+						'data-picture' => 'N2I2NTY0ZmZlYTZhNzMyNzRjZjJkYzhhZTYyZGQ1YzNlMGViN2YwZWRhMzAyYWI2NDc5OWJmYzg2NmJmYTE3MDVmMDRkOTkwYTIxNGVkMDBkMGRhZjQ5ZDFlYzQ1NWE4',
+					],
+					'!content' => [
+						[
+							'!element' => 'source',
+							'!attributes' => [
+								'type' => 'image/webp',
+								'srcset' => 'https://example.com/foo.webp',
+							],
+						],
+						[
+							'!element' => 'source',
+							'!attributes' => [
+								'type' => 'image/png',
+								'srcset' => 'https://example.com/foo.png',
+							],
+						],
+						[
+							'!element' => 'source',
+							'!attributes' => [
+								'type' => 'image/gif',
+								'srcset' => 'https://example.com/foo.gif',
+							],
+						],
+						[
+							'!element' => 'source',
+							'!attributes' => [
+								'type' => 'image/svg+xml',
+								'srcset' => 'https://example.com/foo.svg',
+							],
+						],
+						[
+							'!element' => 'source',
+							'!attributes' => [
+								'type' => 'image/jpeg',
+								'srcset' => 'https://example.com/foo.jpg',
+							],
+						],
+						[
+							'!element' => 'img',
+							'!attributes' => [
+								'width' => 1,
+								'height' => 1,
+								'src' => 'https://example.com/foo.jpg',
+							],
+						],
+					],
+				],
+				[
+					'!element' => 'style',
+					'!attributes' => [
+						'integrity' => 'sha256-nGz8vfxGAnMBYcw2UZc+H1HYAQpbRfzX1qArNYbAnrI=',
+					],
+					'!content' => [
+						'picture[data-picture="N2I2NTY0ZmZlYTZhNzMyNzRjZjJkYzhhZTYyZGQ1YzNlMGViN2YwZWRhMzAyYWI2NDc5OWJmYzg2NmJmYTE3MDVmMDRkOTkwYTIxNGVkMDBkMGRhZjQ5ZDFlYzQ1NWE4"]{max-width:1rem;}',
+					],
+				],
+			],
+			StaticPicture::ToMarkupCollection(
+				'https://example.com/',
+				__DIR__ . '/Fixtures/',
+				false,
+				1,
+				1,
+				[],
+				[],
+				'https://example.com/foo.webp',
+				'https://example.com/foo.png',
+				'https://example.com/foo.gif',
+				'https://example.com/foo.svg',
+				'https://example.com/foo.jpg'
+			)
+		);
+		$this->assertSame(
+			[
+				[
+					'!element' => 'picture',
+					'!attributes' => [
+						'data-picture' => 'MjE4NDQwMTFhZTlkOWQwYmQ4ZGY2MTljMWI1NmYwYmFhNmExZjdmZjg1Mjc3YTdiNDhiZmRkZGFhMjllOGU3Njg4ZWI1MWE2NTJlYjNkY2ZmM2NkOGExOTUyNjMzOWRj',
+					],
+					'!content' => [
+						[
+							'!element' => 'img',
+							'!attributes' => [
+								'width' => 1,
+								'height' => 1,
+								'src' => 'https://static-cdn.bapc.ltd/@mdi/svg/3.8.95/svg/format-quote-open.svg',
+							],
+						],
+					],
+				],
+				[
+					'!element' => 'style',
+					'!attributes' => [
+						'integrity' => 'sha256-TwJW3Ecm5P19DY9g7y3RvoHJaGgZzvfnwNJ7iR54AWs=',
+					],
+					'!content' => [
+						'picture[data-picture="MjE4NDQwMTFhZTlkOWQwYmQ4ZGY2MTljMWI1NmYwYmFhNmExZjdmZjg1Mjc3YTdiNDhiZmRkZGFhMjllOGU3Njg4ZWI1MWE2NTJlYjNkY2ZmM2NkOGExOTUyNjMzOWRj"],svg[data-picture="MjE4NDQwMTFhZTlkOWQwYmQ4ZGY2MTljMWI1NmYwYmFhNmExZjdmZjg1Mjc3YTdiNDhiZmRkZGFhMjllOGU3Njg4ZWI1MWE2NTJlYjNkY2ZmM2NkOGExOTUyNjMzOWRj"]{max-width:1rem;}',
+					],
+				],
+			],
+			StaticPicture::ToMarkupCollection(
+				'https://example.com/',
+				__DIR__ . '/Fixtures/',
+				false,
+				1,
+				1,
+				[],
+				[],
+				'https://static-cdn.bapc.ltd/@mdi/svg/3.8.95/svg/format-quote-open.svg'
+			)
 		);
 	}
 }

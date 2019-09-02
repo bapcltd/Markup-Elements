@@ -22,6 +22,7 @@ class StaticPicture
 	*/
 	public static function ToMarkupCollection(
 		string $static_base_url,
+		string $dir,
 		bool $cache_bust_urls,
 		$width,
 		$height,
@@ -38,8 +39,6 @@ class StaticPicture
 		$sources = array_filter($sources, function (string $maybe) : bool {
 			return 1 === preg_match('/\.(?:jpe?g|png|gif|svgz?|webp)$/i', $maybe);
 		});
-
-		$dir = __DIR__ . '/../../../www-root-store/';
 
 		$as_files = array_filter(
 			$sources,
@@ -59,8 +58,6 @@ class StaticPicture
 				return 1 === preg_match('/^https:\/\//', $in);
 			}
 		);
-
-		$hash = random_bytes(16);
 
 		if (count($as_files) > 0) {
 			$hash = hash_file(
@@ -91,13 +88,14 @@ class StaticPicture
 		*/
 		$content = array_combine(
 			array_map(
-				function (string $in) use ($static_base_url, $cache_bust_urls) : string {
+				function (string $in) use ($static_base_url, $cache_bust_urls, $dir) : string {
 					if (1 === preg_match('/^\.?\//', $in)) {
 						if ( ! $cache_bust_urls) {
-							return $static_base_url . $in;
+							return
+								$static_base_url .
+								preg_replace('/^\.?\//', '', $in);
 						}
 
-						$dir = __DIR__ . '/../../../www-root-store/';
 						$expected = realpath($dir . $in);
 
 						if (
