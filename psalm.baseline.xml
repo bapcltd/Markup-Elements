@@ -10,4 +10,7 @@
       <code>\XDEBUG_PATH_WHITELIST</code>
     </UndefinedConstant>
   </file>
+  <file src="tests/ElementsTest.php">
+    <ArgumentTypeCoercion occurrences="2"/>
+  </file>
 </files>

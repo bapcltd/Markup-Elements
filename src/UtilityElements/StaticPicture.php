@@ -62,7 +62,7 @@ class StaticPicture
 				(string) realpath($dir . $as_files[(int) array_key_last($as_files)]),
 				true
 			);
-		} elseif (count($as_urls) > 0) {
+		} else {
 			$hash_pointer = hash_init('sha384');
 			foreach ($sources as $source) {
 				hash_update($hash_pointer, $source . "\n");
@@ -195,10 +195,6 @@ class StaticPicture
 				'src' => $default_src,
 			]),
 		];
-
-		/**
-		* @var array{0:array{!element:'picture'}, 1:array{!element:'style'}}
-		*/
 		$out = [
 			[
 				'!element' => 'picture',
@@ -217,6 +213,9 @@ class StaticPicture
 			],
 		];
 
+		/**
+		* @var array{0:array{!element:'picture'}, 1:array{!element:'style'}}
+		*/
 		return $out;
 	}
 }

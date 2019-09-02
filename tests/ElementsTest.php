@@ -284,7 +284,7 @@ class ElementsTest extends Base
 	* @return array<
 		int,
 		array{
-			0:class-name<Input\Time>|class-name<Input\Date>,
+			0:class-string<Input\Time>|class-string<Input\Date>,
 			1:array
 		}
 	>
@@ -320,7 +320,7 @@ class ElementsTest extends Base
 	/**
 	* @dataProvider dataProviderInputSupportsDateTimeInterface
 	*
-	* @param class-name<Input\Time>|class-name<Input\Date> $class_name
+	* @param class-string<Input\Time>|class-string<Input\Date> $class_name
 	*/
 	public function testInputSupportsDateTimeInterface(
 		string $class_name,
@@ -351,7 +351,9 @@ class ElementsTest extends Base
 		$this->assertSame(
 			[
 				'!element' => 'select',
-				'!attributes' => [],
+				'!attributes' => [
+					'name' => 'foo',
+				],
 				'!content' => [
 					[
 						'!element' => 'option',
@@ -405,11 +407,12 @@ class ElementsTest extends Base
 			],
 			Input\Select::FromAttributesAndContent(
 				[
+					'name' => 'foo',
 					'value' => [1, 3],
 				],
 				[
 					Input\Select\Option::FromAttributes(['value' => 0]),
-					Input\Select\OptGroup::FromAttributesAndContent(
+					Input\Select\Optgroup::FromAttributesAndContent(
 						['label' => 'bar'],
 						[
 							Input\Select\Option::FromAttributes(['value' => 1]),
