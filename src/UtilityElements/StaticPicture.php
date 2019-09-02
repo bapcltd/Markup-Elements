@@ -8,9 +8,6 @@ namespace BAPC\Html\Elements;
 
 use ParagonIE\ConstantTime\Base64UrlSafe;
 
-/**
-* @psalm-type T = array<string, scalar|array<int, scalar>>
-*/
 class StaticPicture
 {
 	/**
