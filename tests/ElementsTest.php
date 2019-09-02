@@ -6,6 +6,7 @@ declare(strict_types=1);
 
 namespace BAPC\Html\Elements;
 
+use DateTimeImmutable;
 use PHPUnit\Framework\TestCase as Base;
 use RecursiveDirectoryIterator;
 use RecursiveIteratorIterator;
@@ -261,5 +262,214 @@ class ElementsTest extends Base
 		$element_name = $class_name::ElementName();
 
 		$this->assertSame($element_name, $result['!element']);
+	}
+
+	public function testEsi() : void
+	{
+		$this->assertSame(
+			[
+				'!element' => 'esi:include',
+				'!attributes' => [
+					'onerror' => 'continue',
+					'src' => 'foo',
+				],
+				'!content' => [],
+			],
+			EsiInclude::EsiInclude('foo')
+		);
+	}
+
+	/**
+	* @return array<
+		int,
+		array{
+			0:class-name<Input\Time>|class-name<Input\Date>,
+			1:array
+		}
+	>
+	*/
+	public function dataProviderInputSupportsDateTimeInterface() : array
+	{
+		return [
+			[
+				Input\Time::class,
+				[
+					'!element' => 'input',
+					'!attributes' => [
+						'value' => '03:04:05',
+						'type' => 'time',
+					],
+					'!content' => [],
+				],
+			],
+			[
+				Input\Date::class,
+				[
+					'!element' => 'input',
+					'!attributes' => [
+						'value' => '1970-01-02',
+						'type' => 'date',
+					],
+					'!content' => [],
+				],
+			],
+		];
+	}
+
+	/**
+	* @dataProvider dataProviderInputSupportsDateTimeInterface
+	*
+	* @param class-name<Input\Time>|class-name<Input\Date> $class_name
+	*/
+	public function testInputSupportsDateTimeInterface(
+		string $class_name,
+		array $expected
+	) : void {
+		$this->assertSame(
+			$expected,
+			$class_name::FromAttributes([
+				'value' => new DateTimeImmutable('1970-01-02 03:04:05'),
+			])
+		);
+	}
+
+	public function testInputTextArea() : void
+	{
+		$this->assertSame(
+			[
+				'!element' => 'textarea',
+				'!attributes' => [],
+				'!content' => ['foo'],
+			],
+			Input\TextArea::FromAttributes(['value' => 'foo'])
+		);
+	}
+
+	public function testSelect() : void
+	{
+		$this->assertSame(
+			[
+				'!element' => 'select',
+				'!attributes' => [],
+				'!content' => [
+					[
+						'!element' => 'option',
+						'!attributes' => [
+							'value' => 0,
+							'selected' => false,
+						],
+						'!content' => [],
+					],
+					[
+						'!element' => 'optgroup',
+						'!attributes' => [
+							'label' => 'bar',
+						],
+						'!content' => [
+							[
+								'!element' => 'option',
+								'!attributes' => [
+									'value' => 1,
+									'selected' => true,
+								],
+								'!content' => [],
+							],
+							[
+								'!element' => 'option',
+								'!attributes' => [
+									'value' => 2,
+									'selected' => false,
+								],
+								'!content' => [],
+							],
+						],
+					],
+					[
+						'!element' => 'option',
+						'!attributes' => [
+							'value' => 1,
+							'selected' => true,
+						],
+						'!content' => [],
+					],
+					[
+						'!element' => 'option',
+						'!attributes' => [
+							'value' => 3,
+							'selected' => true,
+						],
+						'!content' => [],
+					],
+				],
+			],
+			Input\Select::FromAttributesAndContent(
+				[
+					'value' => [1, 3],
+				],
+				[
+					Input\Select\Option::FromAttributes(['value' => 0]),
+					Input\Select\OptGroup::FromAttributesAndContent(
+						['label' => 'bar'],
+						[
+							Input\Select\Option::FromAttributes(['value' => 1]),
+							Input\Select\Option::FromAttributes(['value' => 2]),
+						]
+					),
+					Input\Select\Option::FromAttributes(['value' => 1]),
+					Input\Select\Option::FromAttributes(['value' => 3]),
+				]
+			)
+		);
+	}
+
+	/**
+	* @return array<int, array{0:class-string<AbstractRequiresTableRows>}>
+	*/
+	public function dataProviderRequiresTableRows() : array
+	{
+		return [
+			[
+				TableHeader::class,
+			],
+			[
+				TableBody::class,
+			],
+			[
+				TableFooter::class,
+			],
+		];
+	}
+
+	/**
+	* @dataProvider dataProviderRequiresTableRows
+	*
+	* @param class-string<AbstractRequiresTableRows> $class_name
+	*/
+	public function testRequiresTableRows(string $class_name) : void
+	{
+		$this->assertSame(
+			[
+				'!element' => $class_name::ElementName(),
+				'!attributes' => [],
+				'!content' => [
+					[
+						'!element' => 'tr',
+						'!attributes' => [],
+						'!content' => [
+							[
+								'!element' => 'td',
+								'!attributes' => [],
+								'!content' => [],
+							],
+						],
+					],
+				],
+			],
+			$class_name::FromContentCollection([
+				[
+					TableCell::FromAttributes([]),
+				],
+			])
+		);
 	}
 }
