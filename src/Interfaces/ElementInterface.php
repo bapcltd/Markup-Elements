@@ -9,10 +9,10 @@ namespace BAPC\Html\Elements;
 /**
 * @template ELEMENT as string
 */
-abstract class AbstractElement
+interface ElementInterface
 {
 	/**
 	* @return ELEMENT
 	*/
-	abstract public static function ElementName() : string;
+	public static function ElementName() : string;
 }

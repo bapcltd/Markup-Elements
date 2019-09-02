@@ -21,7 +21,7 @@ abstract class AbstractInput extends AbstractElementFromAttributes
 	* @return array{!element:'input', !attributes:array{type:T1, value?:scalar|array<int, scalar>}, !content:array<empty, empty>}
 	*/
 	public static function FromAttributes(
-		array $attributes = []
+		array $attributes
 	) : array {
 		$attributes['type'] = static::AbstractInputType();
 

@@ -26,8 +26,8 @@ class Label extends AbstractElementFromAttributesAndContent
 	* @return array{!element:'label', !attributes:T1, !content:T2}
 	*/
 	public static function FromAttributesAndContent(
-		array $attributes = ['for' => ''],
-		array $content = []
+		array $attributes,
+		array $content
 	) : array {
 		return parent::FromAttributesAndContent($attributes, $content);
 	}

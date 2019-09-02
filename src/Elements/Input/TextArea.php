@@ -23,7 +23,7 @@ class TextArea extends AbstractElementFromAttributes
 	}
 	*/
 	public static function FromAttributes(
-		array $attributes = []
+		array $attributes
 	) : array {
 		/**
 		* @var array<int, scalar>

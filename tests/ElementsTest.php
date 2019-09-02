@@ -21,7 +21,7 @@ class ElementsTest extends Base
 	{
 		$directory_path = realpath(
 			__DIR__ .
-			'/../src/'
+			'/../src/Elements/'
 		);
 
 		$this->assertIsString($directory_path);
@@ -74,12 +74,12 @@ class ElementsTest extends Base
 	}
 
 	/**
-	* @return array<int, array{0:class-string<AbstractElementFromAttributesAndContent>}>
+	* @return array<int, array{0:class-string<ElementInterface\FromAttributes\AndContent>}>
 	*/
 	public function dataProviderAbstractElementFromAttributesAndContent(
 	) : array {
 		/**
-		* @var array<int, array{0:class-string<AbstractElementFromAttributesAndContent>}>
+		* @var array<int, array{0:class-string<ElementInterface\FromAttributes\AndContent>}>
 		*/
 		return array_filter(
 			$this->dataProviderElementClasses(),
@@ -91,7 +91,57 @@ class ElementsTest extends Base
 			function (array $maybe) : bool {
 				return is_a(
 					$maybe[0],
-					AbstractElementFromAttributesAndContent::class,
+					ElementInterface\FromAttributes\AndContent::class,
+					true
+				);
+			}
+		);
+	}
+
+	/**
+	* @return array<int, array{0:class-string<ElementInterface\FromAttributes>}>
+	*/
+	public function dataProviderAbstractElementFromAttributes(
+	) : array {
+		/**
+		* @var array<int, array{0:class-string<ElementInterface\FromAttributes>}>
+		*/
+		return array_filter(
+			$this->dataProviderElementClasses(),
+			/**
+			* @param array{
+				0:class-string<AbstractElement>
+			} $maybe
+			*/
+			function (array $maybe) : bool {
+				return is_a(
+					$maybe[0],
+					ElementInterface\FromAttributes::class,
+					true
+				);
+			}
+		);
+	}
+
+	/**
+	* @return array<int, array{0:class-string<ElementInterface\FromContent>}>
+	*/
+	public function dataProviderAbstractElementFromContent(
+	) : array {
+		/**
+		* @var array<int, array{0:class-string<ElementInterface\FromContent>}>
+		*/
+		return array_filter(
+			$this->dataProviderElementClasses(),
+			/**
+			* @param array{
+				0:class-string<AbstractElement>
+			} $maybe
+			*/
+			function (array $maybe) : bool {
+				return is_a(
+					$maybe[0],
+					ElementInterface\FromContent::class,
 					true
 				);
 			}
@@ -101,12 +151,12 @@ class ElementsTest extends Base
 	/**
 	* @dataProvider dataProviderAbstractElementFromAttributesAndContent
 	*
-	* @param class-string<AbstractElementFromAttributesAndContent> $class_name
+	* @param class-string<ElementInterface\FromAttributes\AndContent> $class_name
 	*/
 	public function testElementNameFromAttributesAndContent(
 		string $class_name
 	) : void {
-		$result = $class_name::FromAttributesAndContent();
+		$result = $class_name::FromAttributesAndContent([], []);
 
 		$this->assertCount(3, $result);
 		$this->assertArrayHasKey('!element', $result);
@@ -120,39 +170,35 @@ class ElementsTest extends Base
 	}
 
 	/**
-	* @return array<int, array{0:class-string<AbstractElementFromAttributes>}>
-	*/
-	public function dataProviderAbstractElementFromAttributes(
-	) : array {
-		/**
-		* @var array<int, array{0:class-string<AbstractElementFromAttributes>}>
-		*/
-		return array_filter(
-			$this->dataProviderElementClasses(),
-			/**
-			* @param array{
-				0:class-string<AbstractElement>
-			} $maybe
-			*/
-			function (array $maybe) : bool {
-				return is_a(
-					$maybe[0],
-					AbstractElementFromAttributes::class,
-					true
-				);
-			}
-		);
-	}
-
-	/**
 	* @dataProvider dataProviderAbstractElementFromAttributes
 	*
-	* @param class-string<AbstractElementFromAttributes> $class_name
+	* @param class-string<ElementInterface\FromAttributes> $class_name
 	*/
 	public function testElementNameFromAttributes(
 		string $class_name
 	) : void {
-		$result = $class_name::FromAttributes();
+		$result = $class_name::FromAttributes([]);
+
+		$this->assertCount(3, $result);
+		$this->assertArrayHasKey('!element', $result);
+
+		/**
+		* @var string
+		*/
+		$element_name = $class_name::ElementName();
+
+		$this->assertSame($element_name, $result['!element']);
+	}
+
+	/**
+	* @dataProvider dataProviderAbstractElementFromContent
+	*
+	* @param class-string<ElementInterface\FromContent> $class_name
+	*/
+	public function testElementNameFromContent(
+		string $class_name
+	) : void {
+		$result = $class_name::FromContent([]);
 
 		$this->assertCount(3, $result);
 		$this->assertArrayHasKey('!element', $result);

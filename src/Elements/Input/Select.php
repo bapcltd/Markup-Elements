@@ -25,14 +25,14 @@ class Select extends AbstractElementFromAttributesAndContent
 	/**
 	* @psalm-type CONTENTS = array<int, CONTENTS_OPTION|CONTENTS_OPTGROUP>
 	*
-	* @param T|array<empty, empty> $attributes
+	* @param T $attributes
 	* @param array<int, CONTENTS_OPTION|CONTENTS_OPTGROUP> $content
 	*
 	* @return array{!element:'select', !attributes:T, !content:CONTENTS}
 	*/
 	public static function FromAttributesAndContent(
-		array $attributes = [],
-		array $content = []
+		array $attributes,
+		array $content
 	) : array {
 		if (isset($attributes['value'])) {
 			foreach ($content as $k => $maybe) {

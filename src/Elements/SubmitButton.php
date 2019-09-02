@@ -18,8 +18,8 @@ class SubmitButton extends AbstractElementFromAttributesAndContent
 	* @return array{!element:'button', !attributes:array{type:'submit'}, !content:T2}
 	*/
 	public static function FromAttributesAndContent(
-		array $attributes = [],
-		array $content = []
+		array $attributes,
+		array $content
 	) : array {
 		$attributes['type'] = 'submit';
 

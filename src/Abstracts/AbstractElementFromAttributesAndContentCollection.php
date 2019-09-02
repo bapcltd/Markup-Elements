@@ -17,14 +17,14 @@ namespace BAPC\Html\Elements;
 abstract class AbstractElementFromAttributesAndContentCollection extends AbstractElementWithInnerElement
 {
 	/**
-	* @param ATTRIBUTES|array<empty, empty> $attributes
+	* @param ATTRIBUTES $attributes
 	* @param CONTENT $content
 	*
-	* @return array{!element:ELEMENT, !attributes:ATTRIBUTES|array<empty, empty>, !content: array<int, array{!element:ELEMENT_INNER, !content:array<int, scalar|array{!element:string}>}>}
+	* @return array{!element:ELEMENT, !attributes:ATTRIBUTES, !content: array<int, array{!element:ELEMENT_INNER, !content:array<int, scalar|array{!element:string}>}>}
 	*/
 	public static function FromAttributesAndContentCollection(
-		array $attributes = [],
-		array $content = []
+		array $attributes,
+		array $content
 	) : array {
 		/**
 		* @var array<int, array{!element:ELEMENT_INNER, !content:array<int, scalar|array{!element:string}>}>
@@ -40,7 +40,7 @@ abstract class AbstractElementFromAttributesAndContentCollection extends Abstrac
 		);
 
 		/**
-		* @var array{!element:ELEMENT, !attributes:ATTRIBUTES|array<empty, empty>, !content: array<int, array{!element:ELEMENT_INNER, !content:array<int, scalar|array{!element:string}>}>}
+		* @var array{!element:ELEMENT, !attributes:ATTRIBUTES, !content: array<int, array{!element:ELEMENT_INNER, !content:array<int, scalar|array{!element:string}>}>}
 		*/
 		$out = [
 			'!element' => static::ElementName(),

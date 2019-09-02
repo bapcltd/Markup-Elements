@@ -19,8 +19,8 @@ class AAsButton extends A
 	* @return array{!element:'a', !attributes:T1, !content:T2}
 	*/
 	public static function FromAttributesAndContent(
-		array $attributes = ['href' => '#'],
-		array $content = []
+		array $attributes,
+		array $content
 	) : array {
 		/**
 		* @var T1

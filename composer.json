@@ -10,7 +10,12 @@
 	],
 	"autoload": {
 		"psr-4": {
-			"BAPC\\Html\\Elements\\": "./src/"
+			"BAPC\\Html\\Elements\\": [
+				"./src/Abstracts/",
+				"./src/Elements/",
+				"./src/UtilityElements/",
+				"./src/Interfaces/"
+			]
 		}
 	},
 	"autoload-dev": {
