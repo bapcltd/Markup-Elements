@@ -20,63 +20,60 @@ class ElementsTest extends Base
 	public function dataProviderElementClasses() : array
 	{
 		$directories = [
-			(
-			__DIR__ .
-			'/../src/Elements/'
-			),
+			__DIR__ . '/../src/Elements/',
 			__DIR__ . '/../src/UtilityElements/'
 		];
 
 		$out = [];
 
 		foreach ($directories as $directory_path_string) {
-		$directory_path = realpath(
-			$directory_path_string
-		);
+			$directory_path = realpath(
+				$directory_path_string
+			);
 
-		$this->assertIsString($directory_path);
-		$this->assertTrue(is_dir($directory_path));
+			$this->assertIsString($directory_path);
+			$this->assertTrue(is_dir($directory_path));
 
-		$directory = new RecursiveDirectoryIterator(
-			$directory_path,
-			(
-				RecursiveDirectoryIterator::CURRENT_AS_PATHNAME |
-				RecursiveDirectoryIterator::SKIP_DOTS |
-				RecursiveDirectoryIterator::UNIX_PATHS
-			)
-		);
+			$directory = new RecursiveDirectoryIterator(
+				$directory_path,
+				(
+					RecursiveDirectoryIterator::CURRENT_AS_PATHNAME |
+					RecursiveDirectoryIterator::SKIP_DOTS |
+					RecursiveDirectoryIterator::UNIX_PATHS
+				)
+			);
 
-		$iterator = new RecursiveIteratorIterator($directory);
+			$iterator = new RecursiveIteratorIterator($directory);
 
-		/**
-		* @var iterable<string>
-		*/
-		$filter = new RegexIterator($iterator, '/\.php$/');
-
-		foreach ($filter as $filename) {
 			/**
-			* @var string
+			* @var iterable<string>
 			*/
-			$class_name =
-				__NAMESPACE__ .
-				'\\' .
-				str_replace('/', '\\', mb_substr(
-					$filename,
-					mb_strlen($directory_path) + 1,
-					-4
-				));
+			$filter = new RegexIterator($iterator, '/\.php$/');
 
-			if (
-				is_a(
-					$class_name,
-					AbstractElement::class,
-					true
-				) &&
-				! (new ReflectionClass($class_name))->isAbstract()
-			) {
-				$out[] = [$class_name];
+			foreach ($filter as $filename) {
+				/**
+				* @var string
+				*/
+				$class_name =
+					__NAMESPACE__ .
+					'\\' .
+					str_replace('/', '\\', mb_substr(
+						$filename,
+						mb_strlen($directory_path) + 1,
+						-4
+					));
+
+				if (
+					is_a(
+						$class_name,
+						AbstractElement::class,
+						true
+					) &&
+					! (new ReflectionClass($class_name))->isAbstract()
+				) {
+					$out[] = [$class_name];
+				}
 			}
-		}
 		}
 
 		return $out;
