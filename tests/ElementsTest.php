@@ -593,7 +593,7 @@ class ElementsTest extends Base
 			)
 		);
 	}
-	
+
 	public function testStaticPictureMultipleRemoteNoCacheBust() : void
 	{
 		$this->assertSame(
