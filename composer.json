@@ -50,7 +50,7 @@
 		"phpunit/phpcov": "^6.0",
 		"phpunit/phpunit": "^8.3",
 		"psalm/plugin-phpunit": "^0.7.0",
-		"signpostmarv/php-cs-fixer-config": "^0.11.1",
-		"vimeo/psalm": "^3.4"
+		"signpostmarv/php-cs-fixer-config": "^0.12.0",
+		"vimeo/psalm": "^3.5"
 	}
 }
