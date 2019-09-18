@@ -7,8 +7,8 @@ declare(strict_types=1);
 namespace BAPC\Html\Elements;
 
 /**
-* @psalm-type T1 = array<string, scalar|array<int, scalar>>
-* @psalm-type T2 = array<int, scalar|array{!element:string}>
+* @template T1 as array<string, scalar|array<int, scalar>>
+* @template T2 as array<int, scalar|array{!element:string}>
 *
 * @template-extends AbstractElementFromAttributesAndContent<'button', T1, T2>
 */
