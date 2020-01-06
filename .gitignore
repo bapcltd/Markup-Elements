@@ -2,3 +2,4 @@
 /coverage/
 /phpunit.cache
 /.php_cs.cache
+/.vscode/
