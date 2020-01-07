@@ -7,34 +7,34 @@ declare(strict_types=1);
 namespace BAPC\Html\Elements;
 
 /**
-* @psalm-type TRCONTENTS = array{!element:'th'|'td', !content:array<int, scalar|array{!element:string}>}
-* @psalm-type TRCOLLECTION = array<int, array{!element:'tr', !content:array<int, TRCONTENTS>}>
+* @psalm-type TRCONTENTS = array{!element:'th'|'td', !content:list<scalar|array{!element:string}>}
+* @psalm-type TRCOLLECTION = list<array{!element:'tr', !content:list<TRCONTENTS>}>
 *
 * @template T0 as 'thead'|'tbody'|'tfoot'
-* @template T1 as array<string, scalar|array<int, scalar>>
+* @template T1 as array<string, scalar|list<scalar>>
 *
-* @template-extends AbstractElementFromAttributesAndContent<T0, T1, array<int, array{!element:'tr', !content:array<int, array{!element:'td'|'th', !content:array<int, scalar|array{!element:string}>}>}>>
+* @template-extends AbstractElementFromAttributesAndContent<T0, T1, list<array{!element:'tr', !content:list<array{!element:'td'|'th', !content:list<scalar|array{!element:string}>}>}>>
 */
 abstract class AbstractRequiresTableRows extends AbstractElementFromAttributesAndContent
 {
 	/**
-	* @param array<int, array<int, TRCONTENTS>> $collection
+	* @param list<list<TRCONTENTS>> $collection
 	*
 	* @return array{!element:T0, !content:TRCOLLECTION}
 	*/
-	public static function FromContentCollection(array $collection) : array
+	public function FromContentCollection(array $collection) : array
 	{
 		/**
 		* @var TRCOLLECTION
 		*/
 		$rows = array_map(
 			/**
-			* @param array<int, TRCONTENTS> $row_content
+			* @param list<TRCONTENTS> $row_content
 			*
-			* @return array{!element:'tr', !content:array<int, TRCONTENTS>}
+			* @return array{!element:'tr', !content:list<TRCONTENTS>}
 			*/
 			function (array $row_content) : array {
-				return TableRow::FromAttributesAndContent([], $row_content);
+				return (new TableRow())->FromAttributesAndContent([], $row_content);
 			},
 			$collection
 		);
@@ -42,7 +42,7 @@ abstract class AbstractRequiresTableRows extends AbstractElementFromAttributesAn
 		/**
 		* @var array{!element:T0, !content:TRCOLLECTION}
 		*/
-		$out = static::FromAttributesAndContent([], $rows);
+		$out = (new static())->FromAttributesAndContent([], $rows);
 
 		return $out;
 	}

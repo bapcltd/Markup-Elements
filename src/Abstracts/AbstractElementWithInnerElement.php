@@ -17,5 +17,5 @@ abstract class AbstractElementWithInnerElement extends AbstractElement
 	/**
 	* @return ELEMENT_INNER
 	*/
-	abstract protected static function ElementNameInner() : string;
+	abstract protected function ElementNameInner() : string;
 }

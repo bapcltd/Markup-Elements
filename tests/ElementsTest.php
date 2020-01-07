@@ -17,7 +17,7 @@ use RegexIterator;
 class ElementsTest extends Base
 {
 	/**
-	* @return array<int, array{0:class-string<AbstractElement>}>
+	* @return list<array{0:class-string<AbstractElement>}>
 	*/
 	public function dataProviderElementClasses() : array
 	{
@@ -82,12 +82,12 @@ class ElementsTest extends Base
 	}
 
 	/**
-	* @return array<int, array{0:class-string<ElementInterface\FromAttributes\AndContent>}>
+	* @return list<array{0:class-string<ElementInterface\FromAttributes\AndContent>}>
 	*/
 	public function dataProviderAbstractElementFromAttributesAndContent(
 	) : array {
 		/**
-		* @var array<int, array{0:class-string<ElementInterface\FromAttributes\AndContent>}>
+		* @var list<array{0:class-string<ElementInterface\FromAttributes\AndContent>}>
 		*/
 		return array_filter(
 			$this->dataProviderElementClasses(),
@@ -107,12 +107,12 @@ class ElementsTest extends Base
 	}
 
 	/**
-	* @return array<int, array{0:class-string<ElementInterface\FromAttributes>}>
+	* @return list<array{0:class-string<ElementInterface\FromAttributes>}>
 	*/
 	public function dataProviderAbstractElementFromAttributes(
 	) : array {
 		/**
-		* @var array<int, array{0:class-string<ElementInterface\FromAttributes>}>
+		* @var list<array{0:class-string<ElementInterface\FromAttributes>}>
 		*/
 		return array_filter(
 			$this->dataProviderElementClasses(),
@@ -132,12 +132,12 @@ class ElementsTest extends Base
 	}
 
 	/**
-	* @return array<int, array{0:class-string<ElementInterface\FromContent>}>
+	* @return list<array{0:class-string<ElementInterface\FromContent>}>
 	*/
 	public function dataProviderAbstractElementFromContent(
 	) : array {
 		/**
-		* @var array<int, array{0:class-string<ElementInterface\FromContent>}>
+		* @var list<array{0:class-string<ElementInterface\FromContent>}>
 		*/
 		return array_filter(
 			$this->dataProviderElementClasses(),
@@ -164,7 +164,7 @@ class ElementsTest extends Base
 	public function testElementNameFromAttributesAndContent(
 		string $class_name
 	) : void {
-		$result = $class_name::FromAttributesAndContent([], []);
+		$result = (new $class_name())->FromAttributesAndContent([], []);
 
 		$this->assertCount(3, $result);
 		$this->assertArrayHasKey('!element', $result);
@@ -172,7 +172,7 @@ class ElementsTest extends Base
 		/**
 		* @var string
 		*/
-		$element_name = $class_name::ElementName();
+		$element_name = (new $class_name())->ElementName();
 
 		$this->assertSame($element_name, $result['!element']);
 	}
@@ -185,7 +185,7 @@ class ElementsTest extends Base
 	public function testElementNameFromAttributes(
 		string $class_name
 	) : void {
-		$result = $class_name::FromAttributes([]);
+		$result = (new $class_name())->FromAttributes([]);
 
 		$this->assertCount(3, $result);
 		$this->assertArrayHasKey('!element', $result);
@@ -193,7 +193,7 @@ class ElementsTest extends Base
 		/**
 		* @var string
 		*/
-		$element_name = $class_name::ElementName();
+		$element_name = (new $class_name())->ElementName();
 
 		$this->assertSame($element_name, $result['!element']);
 	}
@@ -206,7 +206,7 @@ class ElementsTest extends Base
 	public function testElementNameFromContent(
 		string $class_name
 	) : void {
-		$result = $class_name::FromContent([]);
+		$result = (new $class_name())->FromContent([]);
 
 		$this->assertCount(3, $result);
 		$this->assertArrayHasKey('!element', $result);
@@ -214,18 +214,18 @@ class ElementsTest extends Base
 		/**
 		* @var string
 		*/
-		$element_name = $class_name::ElementName();
+		$element_name = (new $class_name())->ElementName();
 
 		$this->assertSame($element_name, $result['!element']);
 	}
 
 	/**
-	* @return array<int, array{0:class-string<AbstractElementFromAttributesAndContentCollection>}>
+	* @return list<array{0:class-string<AbstractElementFromAttributesAndContentCollection>}>
 	*/
 	public function dataProviderAbstractElementFromAttributesAndContentCollection(
 	) : array {
 		/**
-		* @var array<int, array{0:class-string<AbstractElementFromAttributesAndContentCollection>}>
+		* @var list<array{0:class-string<AbstractElementFromAttributesAndContentCollection>}>
 		*/
 		return array_filter(
 			$this->dataProviderElementClasses(),
@@ -252,7 +252,7 @@ class ElementsTest extends Base
 	public function testElementNameFromAttributesAndContentCollection(
 		string $class_name
 	) : void {
-		$result = $class_name::FromAttributesAndContentCollection([], [[]]);
+		$result = (new $class_name())->FromAttributesAndContentCollection([], [[]]);
 
 		$this->assertCount(3, $result);
 		$this->assertArrayHasKey('!element', $result);
@@ -260,7 +260,7 @@ class ElementsTest extends Base
 		/**
 		* @var string
 		*/
-		$element_name = $class_name::ElementName();
+		$element_name = (new $class_name())->ElementName();
 
 		$this->assertSame($element_name, $result['!element']);
 	}
@@ -328,7 +328,7 @@ class ElementsTest extends Base
 	) : void {
 		$this->assertSame(
 			$expected,
-			$class_name::FromAttributes([
+			(new $class_name())->FromAttributes([
 				'value' => new DateTimeImmutable('1970-01-02 03:04:05'),
 			])
 		);
@@ -342,7 +342,7 @@ class ElementsTest extends Base
 				'!attributes' => [],
 				'!content' => ['foo'],
 			],
-			Input\TextArea::FromAttributes(['value' => 'foo'])
+			(new Input\TextArea ())->FromAttributes(['value' => 'foo'])
 		);
 	}
 
@@ -372,7 +372,7 @@ class ElementsTest extends Base
 							[
 								'!element' => 'option',
 								'!attributes' => [
-									'value' => 1,
+									'value' => '1',
 									'selected' => true,
 								],
 								'!content' => [],
@@ -380,7 +380,7 @@ class ElementsTest extends Base
 							[
 								'!element' => 'option',
 								'!attributes' => [
-									'value' => 2,
+									'value' => '2',
 									'selected' => false,
 								],
 								'!content' => [],
@@ -390,7 +390,7 @@ class ElementsTest extends Base
 					[
 						'!element' => 'option',
 						'!attributes' => [
-							'value' => 1,
+							'value' => '1',
 							'selected' => true,
 						],
 						'!content' => [],
@@ -398,36 +398,36 @@ class ElementsTest extends Base
 					[
 						'!element' => 'option',
 						'!attributes' => [
-							'value' => 3,
+							'value' => '3',
 							'selected' => true,
 						],
 						'!content' => [],
 					],
 				],
 			],
-			Input\Select::FromAttributesAndContent(
+			(new Input\Select())->FromAttributesAndContent(
 				[
 					'name' => 'foo',
-					'value' => [1, 3],
+					'value' => ['1', '3'],
 				],
 				[
-					Input\Select\Option::FromAttributes(['value' => 0]),
-					Input\Select\Optgroup::FromAttributesAndContent(
+					(new Input\Select\Option())->FromAttributes(['value' => 0]),
+					(new Input\Select\Optgroup())->FromAttributesAndContent(
 						['label' => 'bar'],
 						[
-							Input\Select\Option::FromAttributes(['value' => 1]),
-							Input\Select\Option::FromAttributes(['value' => 2]),
+							(new Input\Select\Option())->FromAttributes(['value' => '1']),
+							(new Input\Select\Option())->FromAttributes(['value' => '2']),
 						]
 					),
-					Input\Select\Option::FromAttributes(['value' => 1]),
-					Input\Select\Option::FromAttributes(['value' => 3]),
+					(new Input\Select\Option())->FromAttributes(['value' => '1']),
+					(new Input\Select\Option())->FromAttributes(['value' => '3']),
 				]
 			)
 		);
 	}
 
 	/**
-	* @return array<int, array{0:class-string<AbstractRequiresTableRows>}>
+	* @return list<array{0:class-string<AbstractRequiresTableRows>}>
 	*/
 	public function dataProviderRequiresTableRows() : array
 	{
@@ -453,7 +453,7 @@ class ElementsTest extends Base
 	{
 		$this->assertSame(
 			[
-				'!element' => $class_name::ElementName(),
+				'!element' => (new $class_name())->ElementName(),
 				'!attributes' => [],
 				'!content' => [
 					[
@@ -469,9 +469,9 @@ class ElementsTest extends Base
 					],
 				],
 			],
-			$class_name::FromContentCollection([
+			(new $class_name())->FromContentCollection([
 				[
-					TableCell::FromAttributes([]),
+					(new TableCell())->FromAttributes([]),
 				],
 			])
 		);

@@ -9,11 +9,11 @@ namespace BAPC\Html\Elements;
 /**
 * @template T1 as string
 *
-* @template-extends AbstractElementFromAttributes<'link', array<string, scalar|array<int, scalar>>, array<empty, empty>>
+* @template-extends AbstractElementFromAttributes<'link', array<string, scalar|list<scalar>>, array<empty, empty>>
 */
 class Link extends AbstractElementFromAttributes
 {
-	public static function ElementName() : string
+	public function ElementName() : string
 	{
 		return 'link';
 	}

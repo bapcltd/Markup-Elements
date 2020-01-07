@@ -14,5 +14,5 @@ interface ElementInterface
 	/**
 	* @return ELEMENT
 	*/
-	public static function ElementName() : string;
+	public function ElementName() : string;
 }

@@ -7,8 +7,8 @@ declare(strict_types=1);
 namespace BAPC\Html\Elements;
 
 /**
-* @psalm-type T1 = array{href:string, class:array<int, string>}
-* @psalm-type T2 = array<int, scalar|array{!element:string}>
+* @psalm-type T1 = array{href:string, class:list<string>}
+* @psalm-type T2 = list<scalar|array{!element:string}>
 */
 class AAsButton extends A
 {
@@ -18,7 +18,7 @@ class AAsButton extends A
 	*
 	* @return array{!element:'a', !attributes:T1, !content:T2}
 	*/
-	public static function FromAttributesAndContent(
+	public function FromAttributesAndContent(
 		array $attributes,
 		array $content
 	) : array {

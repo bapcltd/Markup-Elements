@@ -15,17 +15,17 @@ use DateTimeInterface;
 */
 class Time extends AbstractInput
 {
-	public static function AbstractInputType() : string
+	public function AbstractInputType() : string
 	{
 		return 'time';
 	}
 
 	/**
-	* @param array{value?:scalar|array<int, scalar>|DateTimeInterface} $attributes
+	* @param array{value?:scalar|list<scalar>|DateTimeInterface} $attributes
 	*
-	* @return array{!element:'input', !attributes:array{type:T1, value?:scalar|array<int, scalar>}, !content:array<empty, empty>}
+	* @return array{!element:'input', !attributes:array{type:T1, value?:scalar|list<scalar>}, !content:array<empty, empty>}
 	*/
-	public static function FromAttributes(
+	public function FromAttributes(
 		array $attributes
 	) : array {
 		if (isset($attributes['value']) && $attributes['value'] instanceof DateTimeInterface) {
@@ -33,12 +33,12 @@ class Time extends AbstractInput
 		}
 
 		/**
-		* @var array{value?:scalar|array<int, scalar>}
+		* @var array{value?:scalar|list<scalar>}
 		*/
 		$attributes = $attributes;
 
 		/**
-		* @var array{!element:'input', !attributes:array{type:T1, value?:scalar|array<int, scalar>}, !content:array<empty, empty>}
+		* @var array{!element:'input', !attributes:array{type:T1, value?:scalar|list<scalar>}, !content:array<empty, empty>}
 		*/
 		return parent::FromAttributes($attributes);
 	}

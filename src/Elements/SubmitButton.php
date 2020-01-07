@@ -8,7 +8,7 @@ namespace BAPC\Html\Elements;
 
 /**
 * @psalm-type T1 = array{type:'submit'}
-* @psalm-type T2 = array<int, scalar|array{!element:string}>
+* @psalm-type T2 = list<scalar|array{!element:string}>
 *
 * @template-extends AbstractElementFromAttributesAndContent<'button', T1, T2>
 */
@@ -17,7 +17,7 @@ class SubmitButton extends AbstractElementFromAttributesAndContent
 	/**
 	* @return array{!element:'button', !attributes:array{type:'submit'}, !content:T2}
 	*/
-	public static function FromAttributesAndContent(
+	public function FromAttributesAndContent(
 		array $attributes,
 		array $content
 	) : array {
@@ -36,7 +36,7 @@ class SubmitButton extends AbstractElementFromAttributesAndContent
 		return $out;
 	}
 
-	public static function ElementName() : string
+	public function ElementName() : string
 	{
 		return 'button';
 	}

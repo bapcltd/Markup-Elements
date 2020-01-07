@@ -11,8 +11,8 @@ use BAPC\Html\Elements\Button as Base;
 /**
 * @template T1 as string
 *
-* @psalm-type ATTRIBUTES = array<string, scalar|array<int, scalar>>
-* @psalm-type CONTENT = array<int, scalar|array{!element:string}>
+* @psalm-type ATTRIBUTES = array<string, scalar|list<scalar>>
+* @psalm-type CONTENT = list<scalar|array{!element:string}>
 *
 * @template-extends Base<ATTRIBUTES, CONTENT>
 */
@@ -24,7 +24,7 @@ abstract class AbstractTypedButton extends Base
 	*
 	* @return array{!element:'button', !attributes:ATTRIBUTES, !content:CONTENT}
 	*/
-	public static function FromAttributesAndContent(
+	public function FromAttributesAndContent(
 		array $attributes,
 		array $content
 	) : array {
@@ -36,5 +36,5 @@ abstract class AbstractTypedButton extends Base
 	/**
 	* @return T1
 	*/
-	abstract public static function ButtonType() : string;
+	abstract public function ButtonType() : string;
 }

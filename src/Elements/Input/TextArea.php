@@ -9,24 +9,24 @@ namespace BAPC\Html\Elements\Input;
 use BAPC\Html\Elements\AbstractElementFromAttributes;
 
 /**
-* @psalm-type CONTENT = array<int, scalar>
+* @psalm-type CONTENT = list<scalar>
 *
-* @template-extends AbstractElementFromAttributes<'textarea', array<string, scalar|array<int, scalar>>, CONTENT>
+* @template-extends AbstractElementFromAttributes<'textarea', array<string, scalar|list<scalar>>, CONTENT>
 */
 class TextArea extends AbstractElementFromAttributes
 {
 	/**
 	* @return array{
 		!element:'textarea',
-		!attributes:array<string, scalar|array<int, scalar>>,
+		!attributes:array<string, scalar|list<scalar>>,
 		!content:CONTENT
 	}
 	*/
-	public static function FromAttributes(
+	public function FromAttributes(
 		array $attributes
 	) : array {
 		/**
-		* @var array<int, scalar>
+		* @var list<scalar>
 		*/
 		$value = (array) ($attributes['value'] ?? '');
 
@@ -37,18 +37,18 @@ class TextArea extends AbstractElementFromAttributes
 		/**
 		* @var array{
 			!element:'textarea',
-			!attributes:array<string, scalar|array<int, scalar>>,
-			!content:array<int, scalar>
+			!attributes:array<string, scalar|list<scalar>>,
+			!content:list<scalar>
 		}
 		*/
 		return [
-			'!element' => static::ElementName(),
+			'!element' => (new static())->ElementName(),
 			'!attributes' => $attributes,
 			'!content' => $value,
 		];
 	}
 
-	public static function ElementName() : string
+	public function ElementName() : string
 	{
 		return 'textarea';
 	}

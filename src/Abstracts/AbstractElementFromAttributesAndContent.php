@@ -8,8 +8,8 @@ namespace BAPC\Html\Elements;
 
 /**
 * @template ELEMENT as string
-* @template ATTRIBUTES as array<string, scalar|array<int, scalar>>
-* @template CONTENT as array<int, scalar|array{!element:string}>
+* @template ATTRIBUTES as array<string, scalar|list<scalar>>
+* @template CONTENT as list<scalar|array{!element:string}>
 *
 * @template-extends AbstractElement<ELEMENT>
 *
@@ -26,7 +26,7 @@ abstract class AbstractElementFromAttributesAndContent extends AbstractElement i
 	*
 	* @return array{!element:ELEMENT, !attributes:ATTRIBUTES, !content:CONTENT}
 	*/
-	public static function FromAttributesAndContent(
+	public function FromAttributesAndContent(
 		array $attributes,
 		array $content
 	) : array {
@@ -34,7 +34,7 @@ abstract class AbstractElementFromAttributesAndContent extends AbstractElement i
 		* @var array{!element:ELEMENT, !attributes:ATTRIBUTES, !content:CONTENT}
 		*/
 		$out = [
-			'!element' => static::ElementName(),
+			'!element' => (new static())->ElementName(),
 			'!attributes' => $attributes,
 			'!content' => $content,
 		];
@@ -47,17 +47,17 @@ abstract class AbstractElementFromAttributesAndContent extends AbstractElement i
 	*
 	* @return array{!element:ELEMENT, !attributes:ATTRIBUTES, !content:CONTENT}
 	*/
-	public static function FromAttributes(array $attributes) : array
+	public function FromAttributes(array $attributes) : array
 	{
 		/**
-		* @var array<int, scalar>
+		* @var list<scalar>
 		*/
 		$content = [];
 
 		/**
 		* @var array{!element:ELEMENT, !attributes:ATTRIBUTES, !content:CONTENT}
 		*/
-		return static::FromAttributesAndContent($attributes, $content);
+		return (new static())->FromAttributesAndContent($attributes, $content);
 	}
 
 	/**
@@ -65,11 +65,11 @@ abstract class AbstractElementFromAttributesAndContent extends AbstractElement i
 	*
 	* @return array{!element:ELEMENT, !attributes:ATTRIBUTES, !content:CONTENT}
 	*/
-	public static function FromContent(array $content) : array
+	public function FromContent(array $content) : array
 	{
 		/**
 		* @var array{!element:ELEMENT, !attributes:ATTRIBUTES, !content:CONTENT}
 		*/
-		return static::FromAttributesAndContent([], $content);
+		return (new static())->FromAttributesAndContent([], $content);
 	}
 }

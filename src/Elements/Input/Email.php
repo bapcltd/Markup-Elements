@@ -11,7 +11,7 @@ namespace BAPC\Html\Elements\Input;
 */
 class Email extends AbstractInput
 {
-	public static function AbstractInputType() : string
+	public function AbstractInputType() : string
 	{
 		return 'email';
 	}

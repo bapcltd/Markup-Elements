@@ -11,7 +11,7 @@ namespace BAPC\Html\Elements\Button;
 */
 class Button extends AbstractTypedButton
 {
-	public static function ButtonType() : string
+	public function ButtonType() : string
 	{
 		return 'button';
 	}

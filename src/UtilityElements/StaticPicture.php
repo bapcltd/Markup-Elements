@@ -11,7 +11,7 @@ use ParagonIE\ConstantTime\Base64UrlSafe;
 class StaticPicture
 {
 	/**
-	* @param array<int, string> $sources
+	* @param list<string> $sources
 	* @param numeric $width
 	* @param numeric $height
 	*

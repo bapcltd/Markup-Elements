@@ -8,13 +8,13 @@ namespace BAPC\Html\Elements;
 
 /**
 * @psalm-type T1 = array{href:string}
-* @psalm-type T2 = array<int, scalar|array{!element:string}>
+* @psalm-type T2 = list<scalar|array{!element:string}>
 *
 * @template-extends AbstractElementFromAttributesAndContent<'a', T1, T2>
 */
 class A extends AbstractElementFromAttributesAndContent
 {
-	public static function ElementName() : string
+	public function ElementName() : string
 	{
 		return 'a';
 	}
@@ -25,7 +25,7 @@ class A extends AbstractElementFromAttributesAndContent
 	*
 	* @return array{!element:'a', !attributes:T1, !content:T2}
 	*/
-	public static function FromAttributesAndContent(
+	public function FromAttributesAndContent(
 		array $attributes,
 		array $content
 	) : array {

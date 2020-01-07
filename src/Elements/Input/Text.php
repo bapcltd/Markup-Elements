@@ -11,7 +11,7 @@ namespace BAPC\Html\Elements\Input;
 */
 class Text extends AbstractInput
 {
-	public static function AbstractInputType() : string
+	public function AbstractInputType() : string
 	{
 		return 'text';
 	}

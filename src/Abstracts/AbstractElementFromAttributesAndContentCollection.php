@@ -9,8 +9,8 @@ namespace BAPC\Html\Elements;
 /**
 * @template ELEMENT as string
 * @template ELEMENT_INNER as string
-* @template ATTRIBUTES as array<string, scalar|array<int, scalar>>
-* @template CONTENT as array<int, array<int, scalar| array{!element:string, !attributes?:array<string, scalar|array<int, scalar>>, !content?:array<int, scalar|array{!element:string}>}>>
+* @template ATTRIBUTES as array<string, scalar|list<scalar>>
+* @template CONTENT as list<list<scalar| array{!element:string, !attributes?:array<string, scalar|list<scalar>>, !content?:list<scalar|array{!element:string}>}>>
 *
 * @template-extends AbstractElementWithInnerElement<ELEMENT, ELEMENT_INNER>
 */
@@ -20,14 +20,14 @@ abstract class AbstractElementFromAttributesAndContentCollection extends Abstrac
 	* @param ATTRIBUTES $attributes
 	* @param CONTENT $content
 	*
-	* @return array{!element:ELEMENT, !attributes:ATTRIBUTES, !content: array<int, array{!element:ELEMENT_INNER, !content:array<int, scalar|array{!element:string}>}>}
+	* @return array{!element:ELEMENT, !attributes:ATTRIBUTES, !content: list<array{!element:ELEMENT_INNER, !content:list<scalar|array{!element:string}>}>}
 	*/
-	public static function FromAttributesAndContentCollection(
+	public function FromAttributesAndContentCollection(
 		array $attributes,
 		array $content
 	) : array {
 		/**
-		* @var array<int, array{!element:ELEMENT_INNER, !content:array<int, scalar|array{!element:string}>}>
+		* @var list<array{!element:ELEMENT_INNER, !content:list<scalar|array{!element:string}>}>
 		*/
 		$content = array_map(
 			function (array $inner) : array {
@@ -40,10 +40,10 @@ abstract class AbstractElementFromAttributesAndContentCollection extends Abstrac
 		);
 
 		/**
-		* @var array{!element:ELEMENT, !attributes:ATTRIBUTES, !content: array<int, array{!element:ELEMENT_INNER, !content:array<int, scalar|array{!element:string}>}>}
+		* @var array{!element:ELEMENT, !attributes:ATTRIBUTES, !content: list<array{!element:ELEMENT_INNER, !content:list<scalar|array{!element:string}>}>}
 		*/
 		$out = [
-			'!element' => static::ElementName(),
+			'!element' => (new static())->ElementName(),
 			'!attributes' => $attributes,
 			'!content' => $content,
 		];

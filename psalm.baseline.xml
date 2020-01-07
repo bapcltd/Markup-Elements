@@ -1,16 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<files psalm-version="3.4.12@86e5e50c1bb492045e70f2ebe1da3cad06e4e9b2">
-  <file src="phpunit.xdebug-filter.php">
-    <MixedArgument occurrences="2">
-      <code>\XDEBUG_FILTER_CODE_COVERAGE</code>
-      <code>\XDEBUG_PATH_WHITELIST</code>
-    </MixedArgument>
-    <UndefinedConstant occurrences="2">
-      <code>\XDEBUG_FILTER_CODE_COVERAGE</code>
-      <code>\XDEBUG_PATH_WHITELIST</code>
-    </UndefinedConstant>
+<files psalm-version="3.8.1@8e54e3aa060fc490d86d0e2abbf62750516d40fd">
+  <file src="src/Abstracts/Input/AbstractInput.php">
+    <LessSpecificImplementedReturnType occurrences="1">
+      <code>array{!element:'input', !attributes:array{type:T1, value?:scalar|list&lt;scalar&gt;}, !content:array&lt;empty, empty&gt;}</code>
+    </LessSpecificImplementedReturnType>
   </file>
   <file src="tests/ElementsTest.php">
-    <ArgumentTypeCoercion occurrences="2"/>
+    <ArgumentTypeCoercion occurrences="1"/>
   </file>
 </files>

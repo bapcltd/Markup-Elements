@@ -10,8 +10,8 @@ use BAPC\Html\Elements\ElementInterface as Base;
 
 /**
 * @template ELEMENT as string
-* @template ATTRIBUTES as array<string, scalar|array<int, scalar>>
-* @template CONTENT as array<int, scalar|array{!element:string}>
+* @template ATTRIBUTES as array<string, scalar|list<scalar>>
+* @template CONTENT as list<scalar|array{!element:string}>
 *
 * @template-extends Base<ELEMENT>
 */
@@ -22,7 +22,7 @@ interface FromAttributes extends Base
 	*
 	* @return array{!element:ELEMENT, !attributes:ATTRIBUTES, !content:CONTENT}
 	*/
-	public static function FromAttributes(
+	public function FromAttributes(
 		array $attributes
 	) : array;
 }

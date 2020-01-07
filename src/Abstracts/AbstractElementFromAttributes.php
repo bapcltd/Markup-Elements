@@ -8,8 +8,8 @@ namespace BAPC\Html\Elements;
 
 /**
 * @template ELEMENT as string
-* @template ATTRIBUTES as array<string, scalar|array<int, scalar>>
-* @template CONTENT as array<int, scalar|array{!element:string}>
+* @template ATTRIBUTES as array<string, scalar|list<scalar>>
+* @template CONTENT as list<scalar|array{!element:string}>
 *
 * @template-extends AbstractElement<ELEMENT>
 *
@@ -22,14 +22,14 @@ abstract class AbstractElementFromAttributes extends AbstractElement implements 
 	*
 	* @return array{!element:ELEMENT, !attributes:ATTRIBUTES, !content:CONTENT}
 	*/
-	public static function FromAttributes(
+	public function FromAttributes(
 		array $attributes
 	) : array {
 		/**
 		* @var array{!element:ELEMENT, !attributes:ATTRIBUTES, !content:CONTENT}
 		*/
 		$out = [
-			'!element' => static::ElementName(),
+			'!element' => (new static())->ElementName(),
 			'!attributes' => $attributes,
 			'!content' => [],
 		];

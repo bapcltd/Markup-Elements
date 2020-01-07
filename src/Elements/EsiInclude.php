@@ -14,7 +14,7 @@ namespace BAPC\Html\Elements;
 */
 class EsiInclude extends AbstractElementFromAttributes
 {
-	public static function ElementName() : string
+	public function ElementName() : string
 	{
 		return 'esi:include';
 	}
@@ -32,7 +32,7 @@ class EsiInclude extends AbstractElementFromAttributes
 		/**
 		* @var array{!element:'esi:include', !attributes:array{onerror:ONERROR, src:SRC}, !content:array<empty, empty>}
 		*/
-		$out = static::FromAttributes(['onerror' => $onerror, 'src' => $src]);
+		$out = (new static())->FromAttributes(['onerror' => $onerror, 'src' => $src]);
 
 		return $out;
 	}
