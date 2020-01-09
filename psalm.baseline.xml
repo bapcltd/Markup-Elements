@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<files psalm-version="3.8.1@8e54e3aa060fc490d86d0e2abbf62750516d40fd">
+<files psalm-version="3.8.2@90d6b73fd8062432030ef39b7b6694b3902daa31">
   <file src="src/Abstracts/Input/AbstractInput.php">
     <LessSpecificImplementedReturnType occurrences="1">
       <code>array{!element:'input', !attributes:array{type:T1, value?:scalar|list&lt;scalar&gt;}, !content:array&lt;empty, empty&gt;}</code>
