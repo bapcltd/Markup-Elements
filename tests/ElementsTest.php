@@ -342,7 +342,7 @@ class ElementsTest extends Base
 				'!attributes' => [],
 				'!content' => ['foo'],
 			],
-			(new Input\TextArea ())->FromAttributes(['value' => 'foo'])
+			(new Input\TextArea())->FromAttributes(['value' => 'foo'])
 		);
 	}
 
