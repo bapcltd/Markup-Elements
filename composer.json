@@ -38,7 +38,7 @@
 		"tests": [
 			"phpunit --stop-on-error --stop-on-warning --stop-on-failure",
 			"psalm --show-info=false",
-			"php-cs-fixer fix --verbose --dry-run"
+			"php-cs-fixer fix --verbose --diff-format=udiff --dry-run"
 		]
 	},
 	"require": {
@@ -50,7 +50,7 @@
 		"phpunit/phpcov": "^7.0",
 		"phpunit/phpunit": "^9.1",
 		"psalm/plugin-phpunit": "^0.10.0",
-		"signpostmarv/php-cs-fixer-config": "^0.14.0",
+		"signpostmarv/php-cs-fixer-config": "^0.17.2",
 		"vimeo/psalm": "^3.11"
 	}
 }
