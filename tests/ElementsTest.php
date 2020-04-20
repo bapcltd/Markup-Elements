@@ -17,8 +17,8 @@ use RegexIterator;
 class ElementsTest extends Base
 {
 	/**
-	* @return list<array{0:class-string<AbstractElement>}>
-	*/
+	 * @return list<array{0:class-string<AbstractElement>}>
+	 */
 	public function dataProviderElementClasses() : array
 	{
 		$directories = [
@@ -33,8 +33,8 @@ class ElementsTest extends Base
 				$directory_path_string
 			);
 
-			$this->assertIsString($directory_path);
-			$this->assertTrue(is_dir($directory_path));
+			static::assertIsString($directory_path);
+			static::assertDirectoryExists($directory_path);
 
 			$directory = new RecursiveDirectoryIterator(
 				$directory_path,
@@ -48,14 +48,14 @@ class ElementsTest extends Base
 			$iterator = new RecursiveIteratorIterator($directory);
 
 			/**
-			* @var iterable<string>
-			*/
+			 * @var iterable<string>
+			 */
 			$filter = new RegexIterator($iterator, '/\.php$/');
 
 			foreach ($filter as $filename) {
 				/**
-				* @var string
-				*/
+				 * @var string
+				 */
 				$class_name =
 					__NAMESPACE__ .
 					'\\' .
@@ -82,21 +82,21 @@ class ElementsTest extends Base
 	}
 
 	/**
-	* @return list<array{0:class-string<ElementInterface\FromAttributes\AndContent>}>
-	*/
+	 * @return list<array{0:class-string<ElementInterface\FromAttributes\AndContent>}>
+	 */
 	public function dataProviderAbstractElementFromAttributesAndContent(
 	) : array {
 		/**
-		* @var list<array{0:class-string<ElementInterface\FromAttributes\AndContent>}>
-		*/
+		 * @var list<array{0:class-string<ElementInterface\FromAttributes\AndContent>}>
+		 */
 		return array_filter(
 			$this->dataProviderElementClasses(),
 			/**
-			* @param array{
+			 * @param array{
 				0:class-string<AbstractElement>
 			} $maybe
-			*/
-			function (array $maybe) : bool {
+			 */
+			static function (array $maybe) : bool {
 				return is_a(
 					$maybe[0],
 					ElementInterface\FromAttributes\AndContent::class,
@@ -107,21 +107,21 @@ class ElementsTest extends Base
 	}
 
 	/**
-	* @return list<array{0:class-string<ElementInterface\FromAttributes>}>
-	*/
+	 * @return list<array{0:class-string<ElementInterface\FromAttributes>}>
+	 */
 	public function dataProviderAbstractElementFromAttributes(
 	) : array {
 		/**
-		* @var list<array{0:class-string<ElementInterface\FromAttributes>}>
-		*/
+		 * @var list<array{0:class-string<ElementInterface\FromAttributes>}>
+		 */
 		return array_filter(
 			$this->dataProviderElementClasses(),
 			/**
-			* @param array{
+			 * @param array{
 				0:class-string<AbstractElement>
 			} $maybe
-			*/
-			function (array $maybe) : bool {
+			 */
+			static function (array $maybe) : bool {
 				return is_a(
 					$maybe[0],
 					ElementInterface\FromAttributes::class,
@@ -132,21 +132,21 @@ class ElementsTest extends Base
 	}
 
 	/**
-	* @return list<array{0:class-string<ElementInterface\FromContent>}>
-	*/
+	 * @return list<array{0:class-string<ElementInterface\FromContent>}>
+	 */
 	public function dataProviderAbstractElementFromContent(
 	) : array {
 		/**
-		* @var list<array{0:class-string<ElementInterface\FromContent>}>
-		*/
+		 * @var list<array{0:class-string<ElementInterface\FromContent>}>
+		 */
 		return array_filter(
 			$this->dataProviderElementClasses(),
 			/**
-			* @param array{
+			 * @param array{
 				0:class-string<AbstractElement>
 			} $maybe
-			*/
-			function (array $maybe) : bool {
+			 */
+			static function (array $maybe) : bool {
 				return is_a(
 					$maybe[0],
 					ElementInterface\FromContent::class,
@@ -157,84 +157,84 @@ class ElementsTest extends Base
 	}
 
 	/**
-	* @dataProvider dataProviderAbstractElementFromAttributesAndContent
-	*
-	* @param class-string<ElementInterface\FromAttributes\AndContent> $class_name
-	*/
-	public function testElementNameFromAttributesAndContent(
+	 * @dataProvider dataProviderAbstractElementFromAttributesAndContent
+	 *
+	 * @param class-string<ElementInterface\FromAttributes\AndContent> $class_name
+	 */
+	public function test_element_name_from_attributes_and_content(
 		string $class_name
 	) : void {
 		$result = (new $class_name())->FromAttributesAndContent([], []);
 
-		$this->assertCount(3, $result);
-		$this->assertArrayHasKey('!element', $result);
+		static::assertCount(3, $result);
+		static::assertArrayHasKey('!element', $result);
 
 		/**
-		* @var string
-		*/
+		 * @var string
+		 */
 		$element_name = (new $class_name())->ElementName();
 
-		$this->assertSame($element_name, $result['!element']);
+		static::assertSame($element_name, $result['!element']);
 	}
 
 	/**
-	* @dataProvider dataProviderAbstractElementFromAttributes
-	*
-	* @param class-string<ElementInterface\FromAttributes> $class_name
-	*/
-	public function testElementNameFromAttributes(
+	 * @dataProvider dataProviderAbstractElementFromAttributes
+	 *
+	 * @param class-string<ElementInterface\FromAttributes> $class_name
+	 */
+	public function test_element_name_from_attributes(
 		string $class_name
 	) : void {
 		$result = (new $class_name())->FromAttributes([]);
 
-		$this->assertCount(3, $result);
-		$this->assertArrayHasKey('!element', $result);
+		static::assertCount(3, $result);
+		static::assertArrayHasKey('!element', $result);
 
 		/**
-		* @var string
-		*/
+		 * @var string
+		 */
 		$element_name = (new $class_name())->ElementName();
 
-		$this->assertSame($element_name, $result['!element']);
+		static::assertSame($element_name, $result['!element']);
 	}
 
 	/**
-	* @dataProvider dataProviderAbstractElementFromContent
-	*
-	* @param class-string<ElementInterface\FromContent> $class_name
-	*/
-	public function testElementNameFromContent(
+	 * @dataProvider dataProviderAbstractElementFromContent
+	 *
+	 * @param class-string<ElementInterface\FromContent> $class_name
+	 */
+	public function test_element_name_from_content(
 		string $class_name
 	) : void {
 		$result = (new $class_name())->FromContent([]);
 
-		$this->assertCount(3, $result);
-		$this->assertArrayHasKey('!element', $result);
+		static::assertCount(3, $result);
+		static::assertArrayHasKey('!element', $result);
 
 		/**
-		* @var string
-		*/
+		 * @var string
+		 */
 		$element_name = (new $class_name())->ElementName();
 
-		$this->assertSame($element_name, $result['!element']);
+		static::assertSame($element_name, $result['!element']);
 	}
 
 	/**
-	* @return list<array{0:class-string<AbstractElementFromAttributesAndContentCollection>}>
-	*/
+	 * @return list<array{0:class-string<AbstractElementFromAttributesAndContentCollection>}>
+	 */
 	public function dataProviderAbstractElementFromAttributesAndContentCollection(
 	) : array {
 		/**
-		* @var list<array{0:class-string<AbstractElementFromAttributesAndContentCollection>}>
-		*/
+		 * @var list<array{0:class-string<AbstractElementFromAttributesAndContentCollection>}>
+		 */
 		return array_filter(
 			$this->dataProviderElementClasses(),
 			/**
-			* @param array{
+			 * @param array{
 				0:class-string<AbstractElement>
 			} $maybe
-			*/
-			function (array $maybe) : bool {
+			 */
+			static function (array $maybe) : bool {
 				return is_a(
 					$maybe[0],
 					AbstractElementFromAttributesAndContentCollection::class,
@@ -245,29 +245,29 @@ class ElementsTest extends Base
 	}
 
 	/**
-	* @dataProvider dataProviderAbstractElementFromAttributesAndContentCollection
-	*
-	* @param class-string<AbstractElementFromAttributesAndContentCollection> $class_name
-	*/
-	public function testElementNameFromAttributesAndContentCollection(
+	 * @dataProvider dataProviderAbstractElementFromAttributesAndContentCollection
+	 *
+	 * @param class-string<AbstractElementFromAttributesAndContentCollection> $class_name
+	 */
+	public function test_element_name_from_attributes_and_content_collection(
 		string $class_name
 	) : void {
 		$result = (new $class_name())->FromAttributesAndContentCollection([], [[]]);
 
-		$this->assertCount(3, $result);
-		$this->assertArrayHasKey('!element', $result);
+		static::assertCount(3, $result);
+		static::assertArrayHasKey('!element', $result);
 
 		/**
-		* @var string
-		*/
+		 * @var string
+		 */
 		$element_name = (new $class_name())->ElementName();
 
-		$this->assertSame($element_name, $result['!element']);
+		static::assertSame($element_name, $result['!element']);
 	}
 
-	public function testEsi() : void
+	public function test_esi() : void
 	{
-		$this->assertSame(
+		static::assertSame(
 			[
 				'!element' => 'esi:include',
 				'!attributes' => [
@@ -281,14 +281,14 @@ class ElementsTest extends Base
 	}
 
 	/**
-	* @return array<
+	 * @return array<
 		int,
 		array{
 			0:class-string<Input\Time>|class-string<Input\Date>,
 			1:array
 		}
 	>
-	*/
+	 */
 	public function dataProviderInputSupportsDateTimeInterface() : array
 	{
 		return [
@@ -318,15 +318,15 @@ class ElementsTest extends Base
 	}
 
 	/**
-	* @dataProvider dataProviderInputSupportsDateTimeInterface
-	*
-	* @param class-string<Input\Time>|class-string<Input\Date> $class_name
-	*/
-	public function testInputSupportsDateTimeInterface(
+	 * @dataProvider dataProviderInputSupportsDateTimeInterface
+	 *
+	 * @param class-string<Input\Time>|class-string<Input\Date> $class_name
+	 */
+	public function test_input_supports_date_time_interface(
 		string $class_name,
 		array $expected
 	) : void {
-		$this->assertSame(
+		static::assertSame(
 			$expected,
 			(new $class_name())->FromAttributes([
 				'value' => new DateTimeImmutable('1970-01-02 03:04:05'),
@@ -334,9 +334,9 @@ class ElementsTest extends Base
 		);
 	}
 
-	public function testInputTextArea() : void
+	public function test_input_text_area() : void
 	{
-		$this->assertSame(
+		static::assertSame(
 			[
 				'!element' => 'textarea',
 				'!attributes' => [],
@@ -346,9 +346,9 @@ class ElementsTest extends Base
 		);
 	}
 
-	public function testSelect() : void
+	public function test_select() : void
 	{
-		$this->assertSame(
+		static::assertSame(
 			[
 				'!element' => 'select',
 				'!attributes' => [
@@ -427,8 +427,8 @@ class ElementsTest extends Base
 	}
 
 	/**
-	* @return list<array{0:class-string<AbstractRequiresTableRows>}>
-	*/
+	 * @return list<array{0:class-string<AbstractRequiresTableRows>}>
+	 */
 	public function dataProviderRequiresTableRows() : array
 	{
 		return [
@@ -445,13 +445,13 @@ class ElementsTest extends Base
 	}
 
 	/**
-	* @dataProvider dataProviderRequiresTableRows
-	*
-	* @param class-string<AbstractRequiresTableRows> $class_name
-	*/
-	public function testRequiresTableRows(string $class_name) : void
+	 * @dataProvider dataProviderRequiresTableRows
+	 *
+	 * @param class-string<AbstractRequiresTableRows> $class_name
+	 */
+	public function test_requires_table_rows(string $class_name) : void
 	{
-		$this->assertSame(
+		static::assertSame(
 			[
 				'!element' => (new $class_name())->ElementName(),
 				'!attributes' => [],
@@ -477,9 +477,9 @@ class ElementsTest extends Base
 		);
 	}
 
-	public function testStaticPictureSingleLocalWithCacheBust() : void
+	public function test_static_picture_single_local_with_cache_bust() : void
 	{
-		$this->assertSame(
+		static::assertSame(
 			[
 				[
 					'!element' => 'picture',
@@ -524,9 +524,9 @@ class ElementsTest extends Base
 		);
 	}
 
-	public function testStaticPictureMultipleLocalNoCacheBust() : void
+	public function test_static_picture_multiple_local_no_cache_bust() : void
 	{
-		$this->assertSame(
+		static::assertSame(
 			[
 				[
 					'!element' => 'picture',
@@ -594,9 +594,9 @@ class ElementsTest extends Base
 		);
 	}
 
-	public function testStaticPictureMultipleRemoteNoCacheBust() : void
+	public function test_static_picture_multiple_remote_no_cache_bust() : void
 	{
-		$this->assertSame(
+		static::assertSame(
 			[
 				[
 					'!element' => 'picture',
@@ -676,9 +676,9 @@ class ElementsTest extends Base
 		);
 	}
 
-	public function testStaticPictureExpectPossibleInlineSvg() : void
+	public function test_static_picture_expect_possible_inline_svg() : void
 	{
-		$this->assertSame(
+		static::assertSame(
 			[
 				[
 					'!element' => 'picture',

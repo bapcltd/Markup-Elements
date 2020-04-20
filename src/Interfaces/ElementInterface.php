@@ -7,12 +7,12 @@ declare(strict_types=1);
 namespace BAPC\Html\Elements;
 
 /**
-* @template ELEMENT as string
-*/
+ * @template ELEMENT as string
+ */
 interface ElementInterface
 {
 	/**
-	* @return ELEMENT
-	*/
+	 * @return ELEMENT
+	 */
 	public function ElementName() : string;
 }

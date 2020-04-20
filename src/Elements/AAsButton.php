@@ -7,24 +7,24 @@ declare(strict_types=1);
 namespace BAPC\Html\Elements;
 
 /**
-* @psalm-type T1 = array{href:string, class:list<string>}
-* @psalm-type T2 = list<scalar|array{!element:string}>
-*/
+ * @psalm-type T1 = array{href:string, class:list<string>}
+ * @psalm-type T2 = list<scalar|array{!element:string}>
+ */
 class AAsButton extends A
 {
 	/**
-	* @param array{href:string} $attributes
-	* @param T2 $content
-	*
-	* @return array{!element:'a', !attributes:T1, !content:T2}
-	*/
+	 * @param array{href:string} $attributes
+	 * @param T2 $content
+	 *
+	 * @return array{!element:'a', !attributes:T1, !content:T2}
+	 */
 	public function FromAttributesAndContent(
 		array $attributes,
 		array $content
 	) : array {
 		/**
-		* @var T1
-		*/
+		 * @var T1
+		 */
 		$attributes = array_merge(
 			$attributes,
 			[
@@ -35,8 +35,8 @@ class AAsButton extends A
 		);
 
 		/**
-		* @var array{!element:'a', !attributes:T1, !content:T2}
-		*/
+		 * @var array{!element:'a', !attributes:T1, !content:T2}
+		 */
 		$out = parent::FromAttributesAndContent($attributes, $content);
 
 		return $out;

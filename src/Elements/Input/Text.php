@@ -7,8 +7,8 @@ declare(strict_types=1);
 namespace BAPC\Html\Elements\Input;
 
 /**
-* @template-extends AbstractInput<'text'>
-*/
+ * @template-extends AbstractInput<'text'>
+ */
 class Text extends AbstractInput
 {
 	public function AbstractInputType() : string

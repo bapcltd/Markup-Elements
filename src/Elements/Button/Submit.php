@@ -7,8 +7,8 @@ declare(strict_types=1);
 namespace BAPC\Html\Elements\Button;
 
 /**
-* @template-extends AbstractTypedButton<'submit'>
-*/
+ * @template-extends AbstractTypedButton<'submit'>
+ */
 class Submit extends AbstractTypedButton
 {
 	public function ButtonType() : string

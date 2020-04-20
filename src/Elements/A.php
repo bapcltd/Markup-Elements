@@ -7,11 +7,11 @@ declare(strict_types=1);
 namespace BAPC\Html\Elements;
 
 /**
-* @psalm-type T1 = array{href:string}
-* @psalm-type T2 = list<scalar|array{!element:string}>
-*
-* @template-extends AbstractElementFromAttributesAndContent<'a', T1, T2>
-*/
+ * @psalm-type T1 = array{href:string}
+ * @psalm-type T2 = list<scalar|array{!element:string}>
+ *
+ * @template-extends AbstractElementFromAttributesAndContent<'a', T1, T2>
+ */
 class A extends AbstractElementFromAttributesAndContent
 {
 	public function ElementName() : string
@@ -20,11 +20,11 @@ class A extends AbstractElementFromAttributesAndContent
 	}
 
 	/**
-	* @param T1 $attributes
-	* @param T2 $content
-	*
-	* @return array{!element:'a', !attributes:T1, !content:T2}
-	*/
+	 * @param T1 $attributes
+	 * @param T2 $content
+	 *
+	 * @return array{!element:'a', !attributes:T1, !content:T2}
+	 */
 	public function FromAttributesAndContent(
 		array $attributes,
 		array $content

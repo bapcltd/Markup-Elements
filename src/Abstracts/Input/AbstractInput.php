@@ -9,30 +9,30 @@ namespace BAPC\Html\Elements\Input;
 use BAPC\Html\Elements\AbstractElementFromAttributes;
 
 /**
-* @template T1 as string
-*
-* @template-extends AbstractElementFromAttributes<'input', array{type:T1, value?:scalar|list<scalar>}, array<empty, empty>>
-*/
+ * @template T1 as string
+ *
+ * @template-extends AbstractElementFromAttributes<'input', array{type:T1, value?:scalar|list<scalar>}, array<empty, empty>>
+ */
 abstract class AbstractInput extends AbstractElementFromAttributes
 {
 	/**
-	* @param array{value?:scalar|list<scalar>} $attributes
-	*
-	* @return array{!element:'input', !attributes:array{type:T1, value?:scalar|list<scalar>}, !content:array<empty, empty>}
-	*/
+	 * @param array{value?:scalar|list<scalar>} $attributes
+	 *
+	 * @return array{!element:'input', !attributes:array{type:T1, value?:scalar|list<scalar>}, !content:array<empty, empty>}
+	 */
 	public function FromAttributes(
 		array $attributes
 	) : array {
 		$attributes['type'] = static::AbstractInputType();
 
 		/**
-		* @var array{value?:scalar|list<scalar>, type:T1}
-		*/
+		 * @var array{value?:scalar|list<scalar>, type:T1}
+		 */
 		$attributes = $attributes;
 
 		/**
-		* @var array{!element:'input', !attributes:array{type:T1, value?:scalar|list<scalar>}, !content:array<empty, empty>}
-		*/
+		 * @var array{!element:'input', !attributes:array{type:T1, value?:scalar|list<scalar>}, !content:array<empty, empty>}
+		 */
 		return parent::FromAttributes($attributes);
 	}
 
@@ -42,7 +42,7 @@ abstract class AbstractInput extends AbstractElementFromAttributes
 	}
 
 	/**
-	* @return T1
-	*/
+	 * @return T1
+	 */
 	abstract public function AbstractInputType() : string;
 }

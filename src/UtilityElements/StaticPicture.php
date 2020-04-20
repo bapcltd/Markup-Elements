@@ -11,12 +11,12 @@ use ParagonIE\ConstantTime\Base64UrlSafe;
 class StaticPicture
 {
 	/**
-	* @param list<string> $sources
-	* @param numeric $width
-	* @param numeric $height
-	*
-	* @return array{0:array{!element:'picture'}, 1:array{!element:'style'}}
-	*/
+	 * @param list<string> $sources
+	 * @param numeric $width
+	 * @param numeric $height
+	 *
+	 * @return array{0:array{!element:'picture'}, 1:array{!element:'style'}}
+	 */
 	public static function ToMarkupCollection(
 		string $static_base_url,
 		string $dir,
@@ -33,13 +33,13 @@ class StaticPicture
 
 		array_unshift($sources, $source);
 
-		$sources = array_filter($sources, function (string $maybe) : bool {
+		$sources = array_filter($sources, static function (string $maybe) : bool {
 			return 1 === preg_match('/\.(?:jpe?g|png|gif|svgz?|webp)$/i', $maybe);
 		});
 
 		$as_files = array_filter(
 			$sources,
-			function (string $in) use ($static_base_url, $dir) : bool {
+			static function (string $in) use ($static_base_url, $dir) : bool {
 				$expected = realpath($dir . $in);
 
 				return
@@ -51,7 +51,7 @@ class StaticPicture
 
 		$as_urls = array_filter(
 			$sources,
-			function (string $in) : bool {
+			static function (string $in) : bool {
 				return 1 === preg_match('/^https:\/\//', $in);
 			}
 		);
@@ -74,18 +74,18 @@ class StaticPicture
 		}
 
 		/**
-		* @var string
-		*/
+		 * @var string
+		 */
 		$selector = $picture_attributes['data-picture'] ?? Base64UrlSafe::encode($hash);
 
 		$picture_attributes['data-picture'] = $selector;
 
 		/**
-		* @var array<string, string>
-		*/
+		 * @var array<string, string>
+		 */
 		$content = array_combine(
 			array_map(
-				function (string $in) use ($static_base_url, $cache_bust_urls, $dir) : string {
+				static function (string $in) use ($static_base_url, $cache_bust_urls, $dir) : string {
 					if (1 === preg_match('/^\.?\//', $in)) {
 						if ( ! $cache_bust_urls) {
 							return
@@ -119,7 +119,7 @@ class StaticPicture
 				$sources
 			),
 			array_map(
-				function (string $in) : string {
+				static function (string $in) : string {
 					preg_match('/\.(jpe?g|png|gif|svgz?|webp)$/i', $in, $matches);
 
 					switch (mb_strtolower($matches[1])) {
@@ -142,8 +142,8 @@ class StaticPicture
 		);
 
 		/**
-		* @var string
-		*/
+		 * @var string
+		 */
 		$default_src = array_key_last($content);
 
 		$out = [];
@@ -214,8 +214,8 @@ class StaticPicture
 		];
 
 		/**
-		* @var array{0:array{!element:'picture'}, 1:array{!element:'style'}}
-		*/
+		 * @var array{0:array{!element:'picture'}, 1:array{!element:'style'}}
+		 */
 		return $out;
 	}
 }
