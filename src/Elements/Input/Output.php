@@ -19,6 +19,7 @@ class Output extends AbstractElementFromAttributesAndContent
 {
 	public function ElementName() : string
 	{
+		/** @var ELEMENT */
 		return 'output';
 	}
 

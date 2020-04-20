@@ -42,7 +42,7 @@ abstract class AbstractRequiresTableRows extends AbstractElementFromAttributesAn
 		/**
 		* @var array{!element:T0, !content:TRCOLLECTION}
 		*/
-		$out = (new static())->FromAttributesAndContent([], $rows);
+		$out = (new static())->FromContent($rows);
 
 		return $out;
 	}

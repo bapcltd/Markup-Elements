@@ -17,6 +17,7 @@ class Date extends AbstractInput
 {
 	public function AbstractInputType() : string
 	{
+		/** @var T1 */
 		return 'date';
 	}
 
