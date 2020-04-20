@@ -28,7 +28,7 @@
 		"sort-packages": true
 	},
 	"conflict": {
-		"vimeo/psalm": "<3.4"
+		"vimeo/psalm": "<3.11.2"
 	},
 	"scripts": {
 		"coverage": [
@@ -42,15 +42,15 @@
 		]
 	},
 	"require": {
-		"php": "^7.3",
-		"paragonie/constant_time_encoding": "^2.2",
-		"signpostmarv/daft-markup": "^3.0"
+		"php": "^7.4",
+		"paragonie/constant_time_encoding": "^2.3",
+		"signpostmarv/daft-markup": "^3.1"
 	},
 	"require-dev": {
-		"phpunit/phpcov": "^6.0",
-		"phpunit/phpunit": "^8.5",
-		"psalm/plugin-phpunit": "dev-master",
+		"phpunit/phpcov": "^7.0",
+		"phpunit/phpunit": "^9.1",
+		"psalm/plugin-phpunit": "^0.10.0",
 		"signpostmarv/php-cs-fixer-config": "^0.14.0",
-		"vimeo/psalm": "^3.8"
+		"vimeo/psalm": "^3.11"
 	}
 }
