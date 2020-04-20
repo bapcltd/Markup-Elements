@@ -30,9 +30,9 @@ abstract class AbstractElementFromAttributesAndContentCollection extends Abstrac
 		 * @var list<array{!element:ELEMENT_INNER, !content:list<scalar|array{!element:string}>}>
 		 */
 		$content = array_map(
-			static function (array $inner) : array {
+			function (array $inner) : array {
 				return [
-					'!element' => static::ElementNameInner(),
+					'!element' => $this->ElementNameInner(),
 					'!content' => $inner,
 				];
 			},
