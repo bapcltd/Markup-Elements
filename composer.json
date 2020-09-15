@@ -32,11 +32,16 @@
 	},
 	"scripts": {
 		"coverage": [
-			"phpunit --stop-on-error --stop-on-warning --stop-on-failure --prepend=./phpunit.xdebug-filter.php --coverage-php=./coverage/clover/phpunit.cov",
-			"phpcov merge ./coverage/clover/ --html ./coverage/"
+			"phpunit --prepend ./phpunit.xdebug-filter.php -vvvv --testdox --coverage-html ./coverage/phpunit/"
+		],
+		"coverage-clover": [
+			"phpunit --prepend ./phpunit.xdebug-filter.php -vvvv --coverage-clover ./coverage/phpunit.clover.xml"
 		],
 		"tests": [
-			"phpunit --stop-on-error --stop-on-warning --stop-on-failure",
+			"phpunit --prepend ./phpunit.xdebug-filter.php --no-coverage --stop-on-error --stop-on-warning --stop-on-failure",
+			"@static-analysis"
+		],
+		"static-analysis": [
 			"psalm --show-info=false",
 			"php-cs-fixer fix --verbose --diff-format=udiff --dry-run"
 		]
@@ -47,7 +52,6 @@
 		"signpostmarv/daft-markup": "^3.1"
 	},
 	"require-dev": {
-		"phpunit/phpcov": "^7.0",
 		"phpunit/phpunit": "^9.1",
 		"psalm/plugin-phpunit": "^0.10.0",
 		"signpostmarv/php-cs-fixer-config": "^0.17.2",
