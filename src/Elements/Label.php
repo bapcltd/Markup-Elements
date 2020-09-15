@@ -7,8 +7,8 @@ declare(strict_types=1);
 namespace BAPC\Html\Elements;
 
 /**
- * @psalm-type T1 = array{for:string}
- * @psalm-type T2 = list<scalar|array{!element:string}>
+ * @template T1 as array{for:string}
+ * @template T2 as list<scalar|array{!element:string}>
  *
  * @template-extends AbstractElementFromAttributesAndContent<'label', T1, T2>
  */

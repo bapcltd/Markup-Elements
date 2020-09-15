@@ -13,4 +13,7 @@ namespace BAPC\Html\Elements;
  */
 abstract class AbstractElement implements ElementInterface
 {
+	final public function __construct()
+	{
+	}
 }

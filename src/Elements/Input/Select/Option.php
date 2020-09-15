@@ -9,8 +9,8 @@ namespace BAPC\Html\Elements\Input\Select;
 use BAPC\Html\Elements\AbstractElementFromAttributesAndContent;
 
 /**
- * @psalm-type T1 = array<string, scalar|list<scalar>>
- * @psalm-type T2 = list<scalar|array{!element:string}>
+ * @template T1 as array{value:string}|array<string, scalar|list<scalar>>
+ * @template T2 as list<scalar|array{!element:string}>
  *
  * @template-extends AbstractElementFromAttributesAndContent<'option', T1, T2>
  */

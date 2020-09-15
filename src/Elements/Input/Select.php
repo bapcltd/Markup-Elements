@@ -9,9 +9,9 @@ namespace BAPC\Html\Elements\Input;
 use BAPC\Html\Elements\AbstractElementFromAttributesAndContent;
 
 /**
- * @psalm-type T = array{name:string, value:list<string>}
- * @psalm-type CONTENTS_OPTION = array{!element:'option', !attributes:array{value:string}, !content:list<scalar|array{!element:string}>}
- * @psalm-type CONTENTS_OPTGROUP = array{!element:'optgroup', !attributes:array{label:string}, !content:list<array{!element:'option', !attributes:array{value:string}, !content:list<scalar|array{!element:string}>}>}
+ * @template T as array{name:string, value?:list<string>}
+ * @template CONTENTS_OPTION as array{!element:'option', !attributes:array{value:string}, !content:list<scalar|array{!element:string}>}
+ * @template CONTENTS_OPTGROUP as array{!element:'optgroup', !attributes:array{label:string}, !content:scalar|list<array{!element:'option', !attributes:array{value:string}, !content:list<scalar|array{!element:string}>}>}
  *
  * @template-extends AbstractElementFromAttributesAndContent<'select', T, list<CONTENTS_OPTION|CONTENTS_OPTGROUP>>
  */
@@ -23,18 +23,19 @@ class Select extends AbstractElementFromAttributesAndContent
 	}
 
 	/**
-	 * @psalm-type CONTENTS = list<CONTENTS_OPTION|CONTENTS_OPTGROUP>
-	 *
 	 * @param T $attributes
 	 * @param list<CONTENTS_OPTION|CONTENTS_OPTGROUP> $content
 	 *
-	 * @return array{!element:'select', !attributes:T, !content:CONTENTS}
+	 * @return array{!element:'select', !attributes:T, !content:list<CONTENTS_OPTION|CONTENTS_OPTGROUP>}
 	 */
 	public function FromAttributesAndContent(
 		array $attributes,
 		array $content
 	) : array {
-		if (isset($attributes['value'])) {
+		/** @var list<string>|null */
+		$value = $attributes['value'] ?? null;
+
+		if (isset($value)) {
 			foreach ($content as $k => $maybe) {
 				if ('option' === $maybe['!element']) {
 					/**
@@ -44,25 +45,25 @@ class Select extends AbstractElementFromAttributesAndContent
 
 					$content[$k] = static::MaybeMarkSelected(
 					$maybe,
-					$attributes['value']
+					$value
 				);
 				} else {
 					/**
-					 * @var CONTENTS_OPTGROUP
+					 * @var list<CONTENTS_OPTION>
 					 */
-					$maybe = $content[$k];
+					$maybe = $content[$k]['!content'];
 
 					$content[$k]['!content'] = array_map(
 					/**
 					 * @param CONTENTS_OPTION $maybe
 					 */
-					static function (array $maybe) use ($attributes) : array {
+					static function (array $maybe) use ($value) : array {
 						return static::MaybeMarkSelected(
 							$maybe,
-							$attributes['value']
+							$value
 						);
 					},
-					$maybe['!content']
+					$maybe
 				);
 				}
 			}
@@ -80,9 +81,6 @@ class Select extends AbstractElementFromAttributesAndContent
 		 */
 		$content = $content;
 
-		/**
-		 * @var array{!element:'select', !attributes:T, !content:CONTENTS}
-		 */
 		$out = parent::FromAttributesAndContent($attributes, $content);
 
 		return $out;

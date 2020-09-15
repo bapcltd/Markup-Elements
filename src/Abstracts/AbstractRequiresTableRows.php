@@ -10,17 +10,17 @@ namespace BAPC\Html\Elements;
  * @psalm-type TRCONTENTS = array{!element:'th'|'td', !content:list<scalar|array{!element:string}>}
  * @psalm-type TRCOLLECTION = list<array{!element:'tr', !content:list<TRCONTENTS>}>
  *
- * @template T0 as 'thead'|'tbody'|'tfoot'
- * @template T1 as array<string, scalar|list<scalar>>
+ * @template ELEMENT as 'thead'|'tbody'|'tfoot'
+ * @template ATTRIBUTES as array<string, scalar|list<scalar>>
  *
- * @template-extends AbstractElementFromAttributesAndContent<T0, T1, list<array{!element:'tr', !content:list<array{!element:'td'|'th', !content:list<scalar|array{!element:string}>}>}>>
+ * @template-extends AbstractElementFromAttributesAndContent<ELEMENT, ATTRIBUTES, list<array{!element:'tr', !content:list<array{!element:'td'|'th', !content:list<scalar|array{!element:string}>}>}>>
  */
 abstract class AbstractRequiresTableRows extends AbstractElementFromAttributesAndContent
 {
 	/**
 	 * @param list<list<TRCONTENTS>> $collection
 	 *
-	 * @return array{!element:T0, !content:TRCOLLECTION}
+	 * @return array{!element:ELEMENT, !content:TRCOLLECTION}
 	 */
 	public function FromContentCollection(array $collection) : array
 	{
@@ -40,7 +40,7 @@ abstract class AbstractRequiresTableRows extends AbstractElementFromAttributesAn
 		);
 
 		/**
-		 * @var array{!element:T0, !content:TRCOLLECTION}
+		 * @var array{!element:ELEMENT, !content:TRCOLLECTION}
 		 */
 		$out = (new static())->FromContent($rows);
 

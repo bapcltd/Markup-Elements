@@ -9,7 +9,7 @@ namespace BAPC\Html\Elements\Input;
 use BAPC\Html\Elements\AbstractElementFromAttributes;
 
 /**
- * @psalm-type CONTENT = list<scalar>
+ * @template CONTENT as list<scalar>
  *
  * @template-extends AbstractElementFromAttributes<'textarea', array<string, scalar|list<scalar>>, CONTENT>
  */
@@ -17,10 +17,10 @@ class TextArea extends AbstractElementFromAttributes
 {
 	/**
 	 * @return array{
-		!element:'textarea',
-		!attributes:array<string, scalar|list<scalar>>,
-		!content:CONTENT
-	}
+	 *	!element:'textarea',
+	 *	!attributes:array<string, scalar|list<scalar>>,
+	 *	!content:CONTENT
+	 * }
 	 */
 	public function FromAttributes(
 		array $attributes
@@ -36,10 +36,10 @@ class TextArea extends AbstractElementFromAttributes
 
 		/**
 		 * @var array{
-			!element:'textarea',
-			!attributes:array<string, scalar|list<scalar>>,
-			!content:list<scalar>
-		}
+		 *	!element:'textarea',
+		 *	!attributes:array<string, scalar|list<scalar>>,
+		 *	!content:CONTENT
+		 * }
 		 */
 		return [
 			'!element' => (new static())->ElementName(),

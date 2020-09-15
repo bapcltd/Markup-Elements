@@ -9,35 +9,33 @@ namespace BAPC\Html\Elements\Input;
 use BAPC\Html\Elements\AbstractElementFromAttributesAndContent;
 
 /**
- * @template ELEMENT as 'output'|'output'
- * @template ATTRIBUTES as array<string, scalar|list<scalar>>
- * @psalm-type T2 = list<scalar|array{!element:string}>
+ * @psalm-type ELEMENT = 'output'
  *
- * @template-extends AbstractElementFromAttributesAndContent<ELEMENT, ATTRIBUTES, T2>
+ * @template ATTRIBUTES as array<string, scalar|list<scalar>>
+ * @template T2 as list<scalar|array{!element:string}>
+ *
+ * @template-extends AbstractElementFromAttributesAndContent<'output', ATTRIBUTES, T2>
  */
 class Output extends AbstractElementFromAttributesAndContent
 {
 	public function ElementName() : string
 	{
-		/** @var ELEMENT */
 		return 'output';
 	}
 
 	/**
 	 * @param ATTRIBUTES $attributes
 	 *
-	 * @return array{!element:ELEMENT, !attributes:ATTRIBUTES, !content:array<empty, empty>}
+	 * @return array{!element:ELEMENT, !attributes:ATTRIBUTES, !content:T2}
 	 */
 	public function FromAttributes(array $attributes) : array
 	{
 		/**
-		 * @var list<scalar>
+		 * @var T2
 		 */
 		$content = [];
 
-		/**
-		 * @var array{!element:ELEMENT, !attributes:ATTRIBUTES, !content:array<empty, empty>}
-		 */
+		/** @var array{!element:ELEMENT, !attributes:ATTRIBUTES, !content:T2} */
 		return (new static())->FromAttributesAndContent($attributes, $content);
 	}
 }

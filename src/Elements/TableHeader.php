@@ -7,9 +7,9 @@ declare(strict_types=1);
 namespace BAPC\Html\Elements;
 
 /**
- * @psalm-type T1 = array<string, scalar|list<scalar>>
+ * @template ATTRIBUTES as array<string, scalar|list<scalar>>
  *
- * @template-extends AbstractRequiresTableRows<'thead', T1>
+ * @template-extends AbstractRequiresTableRows<'thead', ATTRIBUTES>
  */
 class TableHeader extends AbstractRequiresTableRows
 {

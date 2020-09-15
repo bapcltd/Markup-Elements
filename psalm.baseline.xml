@@ -1,2 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<files psalm-version="3.15@de6e7f324f44dde540ebe7ebd4eb481b97c86f30"/>
+<files psalm-version="3.15@de6e7f324f44dde540ebe7ebd4eb481b97c86f30">
+  <file src="tests/ElementsTest.php">
+    <ArgumentTypeCoercion occurrences="1"/>
+  </file>
+</files>
