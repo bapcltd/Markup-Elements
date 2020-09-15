@@ -6,6 +6,7 @@ declare(strict_types=1);
 
 namespace BAPC\Html\Elements\Input;
 
+use function array_key_exists;
 use BAPC\Html\Elements\AbstractElementFromAttributes;
 
 /**

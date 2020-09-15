@@ -6,13 +6,20 @@ declare(strict_types=1);
 
 namespace BAPC\Html\Elements;
 
+use function array_filter;
 use DateTimeImmutable;
+use function hash_file;
+use function is_a;
+use function mb_strlen;
+use function mb_substr;
 use ParagonIE\ConstantTime\Base64UrlSafe;
 use PHPUnit\Framework\TestCase as Base;
+use function realpath;
 use RecursiveDirectoryIterator;
 use RecursiveIteratorIterator;
 use ReflectionClass;
 use RegexIterator;
+use function str_replace;
 
 class ElementsTest extends Base
 {

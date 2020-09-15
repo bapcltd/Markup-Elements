@@ -6,7 +6,9 @@ declare(strict_types=1);
 
 namespace BAPC\Html\Elements\Input;
 
+use function array_map;
 use BAPC\Html\Elements\AbstractElementFromAttributesAndContent;
+use function in_array;
 
 /**
  * @template T as array{name:string, value?:list<string>}

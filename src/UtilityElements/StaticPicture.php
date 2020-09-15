@@ -6,7 +6,32 @@ declare(strict_types=1);
 
 namespace BAPC\Html\Elements;
 
+use function array_combine;
+use function array_filter;
+use function array_key_last;
+use function array_map;
+use function array_merge;
+use function array_unshift;
+use function base64_encode;
+use function bin2hex;
+use function count;
+use function hash;
+use function hash_file;
+use function hash_final;
+use function hash_init;
+use function hash_update;
+use function implode;
+use function is_file;
+use function is_string;
+use function mb_strpos;
+use function mb_strtolower;
+use function mb_substr;
 use ParagonIE\ConstantTime\Base64UrlSafe;
+use function preg_match;
+use function preg_replace;
+use function rawurlencode;
+use function realpath;
+use function sprintf;
 
 class StaticPicture
 {

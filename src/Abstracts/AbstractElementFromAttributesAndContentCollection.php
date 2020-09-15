@@ -6,6 +6,8 @@ declare(strict_types=1);
 
 namespace BAPC\Html\Elements;
 
+use function array_map;
+
 /**
  * @template ELEMENT as string
  * @template ELEMENT_INNER as string

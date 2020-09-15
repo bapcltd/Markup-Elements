@@ -6,6 +6,8 @@ declare(strict_types=1);
 
 namespace BAPC\Html\Elements;
 
+use function array_map;
+
 /**
  * @psalm-type TRCONTENTS = array{!element:'th'|'td', !content:list<scalar|array{!element:string}>}
  * @psalm-type TRCOLLECTION = list<array{!element:'tr', !content:list<TRCONTENTS>}>
