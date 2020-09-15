@@ -1,24 +1,24 @@
 <?xml version="1.0"?>
 <psalm
 	loadXdebugStub="true"
-    totallyTyped="true"
-    resolveFromConfigFile="true"
-    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    xmlns="https://getpsalm.org/schema/config"
-    xsi:schemaLocation="https://getpsalm.org/schema/config vendor/vimeo/psalm/config.xsd"
-    errorBaseline="./psalm.baseline.xml"
+	totallyTyped="true"
+	resolveFromConfigFile="true"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns="https://getpsalm.org/schema/config"
+	xsi:schemaLocation="https://getpsalm.org/schema/config vendor/vimeo/psalm/config.xsd"
+	errorBaseline="./psalm.baseline.xml"
 >
-    <projectFiles>
+	<projectFiles>
 		<file name="phpunit.xdebug-filter.php" />
-        <directory name="src"/>
-        <directory name="tests"/>
-        <ignoreFiles>
-            <directory name="vendor"/>
-        </ignoreFiles>
-    </projectFiles>
+		<directory name="src"/>
+		<directory name="tests"/>
+		<ignoreFiles>
+			<directory name="vendor"/>
+		</ignoreFiles>
+	</projectFiles>
 
-    <issueHandlers>
-    </issueHandlers>
+	<issueHandlers>
+	</issueHandlers>
 	<plugins>
 		<pluginClass class="Psalm\PhpUnitPlugin\Plugin"/>
 	</plugins>
