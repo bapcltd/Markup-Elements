@@ -54,7 +54,7 @@
 	"require-dev": {
 		"bapcltd/php-cs-fixer-config": "^1.0",
 		"phpunit/phpunit": "^9.1",
-		"psalm/plugin-phpunit": "^0.10.0",
+		"psalm/plugin-phpunit": "^0.12.1",
 		"vimeo/psalm": "^3.15"
 	}
 }
