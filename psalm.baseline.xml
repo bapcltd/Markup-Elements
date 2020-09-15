@@ -1,16 +1,2 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<files psalm-version="3.11.2@d470903722cfcbc1cd04744c5491d3e6d13ec3d9">
-  <file src="src/Elements/Input/Date.php">
-    <ImplementedReturnTypeMismatch occurrences="1">
-      <code>array{!element:'input', !attributes:array{type:T1, value?:scalar|list&lt;scalar&gt;}, !content:array&lt;empty, empty&gt;}</code>
-    </ImplementedReturnTypeMismatch>
-  </file>
-  <file src="src/Elements/Input/Time.php">
-    <ImplementedReturnTypeMismatch occurrences="1">
-      <code>array{!element:'input', !attributes:array{type:T1, value?:scalar|list&lt;scalar&gt;}, !content:array&lt;empty, empty&gt;}</code>
-    </ImplementedReturnTypeMismatch>
-  </file>
-  <file src="tests/ElementsTest.php">
-    <ArgumentTypeCoercion occurrences="1"/>
-  </file>
-</files>
+<files psalm-version="3.15@de6e7f324f44dde540ebe7ebd4eb481b97c86f30"/>
