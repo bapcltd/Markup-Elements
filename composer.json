@@ -42,7 +42,7 @@
 			"@static-analysis"
 		],
 		"static-analysis": [
-			"psalm --show-info=false",
+			"psalm --show-info=false --shepherd",
 			"php-cs-fixer fix --verbose --diff-format=udiff --dry-run"
 		]
 	},
